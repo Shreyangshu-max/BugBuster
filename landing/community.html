@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BugBuster — Community</title>
+  <meta name="description" content="BugBuster Community — ask coding questions, post bugs, fork code fixes, and collaborate with competitive programmers." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="pages.css" />
+</head>
+<body class="comm-page-body">
+
+<!-- FAINT BUS SIGNAL ANIMATION OVERLAYS -->
+<div class="comm-bus-signal-overlay"></div>
+<div class="comm-bus-signal-wave"></div>
+
+<!-- STICKY NAV -->
+<header class="nav" id="nav" role="banner" style="position:relative; z-index:10;">
+  <div class="nav__inner">
+    <a class="nav__wordmark" href="/" aria-label="BugBuster home">Bug<span class="wm-accent">Buster</span></a>
+    <nav class="nav__links" aria-label="App features">
+      <a href="/" class="nav__link">Home</a>
+      <a href="/editor" class="nav__link">Editor</a>
+      <a href="/community" class="nav__link active" aria-current="page">Community</a>
+      <a href="/challenges" class="nav__link">Challenges</a>
+      <a href="/leaderboard" class="nav__link">Leaderboard</a>
+      <a href="/recall" class="nav__link">Recall</a>
+      <a href="/dashboard" class="nav__link">Dashboard</a>
+    </nav>
+    <div class="nav__right">
+      <a href="/editor" class="btn-primary">Try Editor</a>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO HEADER -->
+<section class="page-hero community-hero" style="position:relative; z-index:2;">
+  <div class="page-hero__inner">
+    <span class="page-pill">Open Server Feed</span>
+    <h1 class="page-hero__h1">Stuck on a bug? Post it.<br><span class="grad-text">Someone will pick it up.</span></h1>
+    <p class="page-hero__sub">Share the coding problem you can't crack, discuss solutions, and collaborate with 1,800+ learners across Java, C++, and Python tracks.</p>
+    <div class="hero-stats-row">
+      <div class="hero-stat"><span class="hero-stat__num">259</span><span class="hero-stat__label">Active Posts</span></div>
+      <div class="hero-stat"><span class="hero-stat__num">1,840</span><span class="hero-stat__label">Fixes Submitted</span></div>
+      <div class="hero-stat"><span class="hero-stat__num">94%</span><span class="hero-stat__label">Resolution Rate</span></div>
+      <div class="hero-stat"><span class="hero-stat__num">312</span><span class="hero-stat__label">Contributors</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTENT SECTION (3-COLUMN LAYOUT) -->
+<section class="page-section" style="padding-top: 32px; background:transparent; position:relative; z-index:2;">
+  <div class="page-container" style="max-width: 1240px;">
+
+    <div class="community-3col-layout">
+
+      <!-- LEFT SIDEBAR: TRENDING TOPICS & FILTERS -->
+      <aside class="comm-left-panel">
+        
+        <!-- TRENDING TOPICS CARD -->
+        <div class="comm-side-card">
+          <div class="comm-side-header">
+            <span class="comm-side-title">What everyone is talking about</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </div>
+
+          <div class="comm-side-sub-heading">Trending Globally</div>
+          <div class="comm-trending-list">
+            <div class="comm-trending-item"><span>#binary-search</span><span class="comm-trending-arrow">›</span></div>
+            <div class="comm-trending-item"><span>#arrays-and-hashes</span><span class="comm-trending-arrow">›</span></div>
+            <div class="comm-trending-item"><span>#dynamic-programming</span><span class="comm-trending-arrow">›</span></div>
+            <div class="comm-trending-item"><span>#trees-and-graphs</span><span class="comm-trending-arrow">›</span></div>
+          </div>
+
+          <div class="comm-side-sub-heading">Trending in Languages</div>
+          <div class="comm-trending-list">
+            <div class="comm-trending-item"><span>#java-concurrency</span><span class="comm-trending-arrow">›</span></div>
+            <div class="comm-trending-item"><span>#cpp-pointers</span><span class="comm-trending-arrow">›</span></div>
+            <div class="comm-trending-item"><span>#python-lists</span><span class="comm-trending-arrow">›</span></div>
+          </div>
+        </div>
+
+        <!-- FILTER POSTS CARD -->
+        <div class="comm-side-card">
+          <div class="sidebar-heading">Filter Posts</div>
+          <div class="filter-group" id="status-filter" style="margin-bottom:20px;">
+            <button class="filter-btn active" data-filter="all">All Posts</button>
+            <button class="filter-btn" data-filter="open">Open</button>
+            <button class="filter-btn" data-filter="in-progress">In Progress</button>
+            <button class="filter-btn" data-filter="solved">Solved</button>
+          </div>
+
+          <div class="sidebar-heading">Language</div>
+          <div class="filter-group" id="lang-filter">
+            <button class="filter-btn active" data-lang="all">All Languages</button>
+            <button class="filter-btn" data-lang="python">Python</button>
+            <button class="filter-btn" data-lang="java">Java</button>
+            <button class="filter-btn" data-lang="cpp">C++</button>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- CENTER FEED: COMPOSE BOX & POSTS -->
+      <main class="comm-center-panel">
+
+        <!-- TOP COMPOSE BOX: "Which Question to Post today" -->
+        <div class="comm-compose-card">
+          <div class="comm-compose-top">
+            <img class="comm-compose-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Your avatar" />
+            <div class="comm-compose-input-wrap">
+              <input class="comm-compose-input" id="new-question-input" type="text" placeholder="Which Question to Post today?" />
+            </div>
+            <button class="comm-post-btn" id="btn-submit-question">Post Question</button>
+          </div>
+
+          <div class="comm-compose-actions">
+            <div class="comm-action-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Image
+            </div>
+            <div class="comm-action-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              Code Snippet
+            </div>
+            <div class="comm-action-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+              Tag Topic
+            </div>
+            <div class="comm-action-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Language
+            </div>
+          </div>
+        </div>
+
+        <!-- FEED HEADER -->
+        <div class="feed-header" style="margin-bottom:16px;">
+          <div class="feed-sort">
+            <span class="feed-sort__label">Sort by:</span>
+            <select class="feed-sort__select" id="sort-select">
+              <option value="recent">Most Recent</option>
+              <option value="popular">Most Attempted</option>
+              <option value="unsolved">Needs Help</option>
+            </select>
+          </div>
+          <div class="feed-count" id="feed-count">259 posts</div>
+        </div>
+
+        <!-- POSTS LIST (12 DETAILED POSTS) -->
+        <div class="posts-list" id="posts-list">
+
+          <!-- POST 1 -->
+          <article class="post-card" id="post-1">
+            <div class="post-card__header">
+              <img class="comm-contrib-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Aarav Shah" />
+              <div class="comm-post-header-info">
+                <div class="comm-post-author-row">
+                  <span class="post-card__author">Aarav Shah</span>
+                  <span class="comm-verified-check">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#1D72E8"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  </span>
+                  <span class="comm-post-handle">@aarav_dev · 12m ago</span>
+                </div>
+              </div>
+              <span class="post-status open">Open</span>
+            </div>
+            <h3 class="post-card__title">Binary search returns wrong index when target is at boundary</h3>
+            <p class="post-card__body">My binary search implementation keeps failing on edge cases where the target is at the very start or end of the array. I've checked the loop condition several times but can't figure out what's wrong.</p>
+            <div class="post-card__code-snippet">
+              <pre><code class="code-snippet-text">def search(nums, target):
+    lo, hi = 0, len(nums)
+    while lo &lt; hi:
+        mid = (lo + hi) // 2
+        if nums[mid] == target:
+            return mid</code></pre>
+            </div>
+            <div class="comm-post-stats-row">
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span>23</span>
+              </div>
+              <div class="comm-post-stat-item discuss" id="discuss-1">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <span>5 Replies</span>
+              </div>
+              <button class="post-action-btn trying" id="try-1">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+                Try Fix (3 trying)
+              </button>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>256</span>
+              </div>
+            </div>
+            <!-- Inline Thread -->
+            <div class="post-thread hidden" id="thread-1">
+              <div class="thread-reply">
+                <img class="reply-avatar" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80" alt="Meera" />
+                <div class="reply-bubble">
+                  <span class="reply-author">Meera Nair</span>
+                  <span class="reply-time">8m ago</span>
+                  <p>Have you tried checking if <code>hi = len(nums) - 1</code>? Your upper bound might be off by one.</p>
+                </div>
+              </div>
+              <div class="thread-compose">
+                <input class="thread-input" type="text" placeholder="Add a comment..." id="reply-input-1" />
+                <button class="thread-send" id="reply-send-1">Send</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- POST 2 -->
+          <article class="post-card" id="post-2">
+            <div class="post-card__header">
+              <img class="comm-contrib-avatar" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80" alt="Meera Nair" />
+              <div class="comm-post-header-info">
+                <div class="comm-post-author-row">
+                  <span class="post-card__author">Meera Nair</span>
+                  <span class="comm-verified-check">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#1D72E8"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  </span>
+                  <span class="comm-post-handle">@meera_n · 45m ago</span>
+                </div>
+              </div>
+              <span class="post-status in-progress">In Progress</span>
+            </div>
+            <h3 class="post-card__title">N-Queens Backtracking recursion stack overflow on N=12</h3>
+            <p class="post-card__body">My backtracking solution works fine for N=4 and N=8, but hits stack overflow when N reaches 12. How can I optimize the collision checks for diagonals using bit manipulation?</p>
+            <div class="post-card__code-snippet">
+              <pre><code class="code-snippet-text">void solve(int row, int cols, int diag1, int diag2) {
+    if (row == N) { count++; return; }
+    int available = ((1 &lt;&lt; N) - 1) &amp; ~(cols | diag1 | diag2);
+    while (available) {
+        int p = available &amp; -available;
+        available -= p;
+        solve(row + 1, cols | p, (diag1 | p) &lt;&lt; 1, (diag2 | p) &gt;&gt; 1);
+    }
+}</code></pre>
+            </div>
+            <div class="comm-post-stats-row">
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span>41</span>
+              </div>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <span>8 Replies</span>
+              </div>
+              <button class="post-action-btn trying" id="try-2">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+                Try Fix (4 trying)
+              </button>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>410</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- POST 3 -->
+          <article class="post-card" id="post-3">
+            <div class="post-card__header">
+              <img class="comm-contrib-avatar" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&auto=format&fit=crop&q=80" alt="Kabir Sen" />
+              <div class="comm-post-header-info">
+                <div class="comm-post-author-row">
+                  <span class="post-card__author">Kabir Sen</span>
+                  <span class="comm-verified-check">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#1D72E8"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  </span>
+                  <span class="comm-post-handle">@kabir_sen · 1h ago</span>
+                </div>
+              </div>
+              <span class="post-status solved">Solved</span>
+            </div>
+            <h3 class="post-card__title">HashMap collisions handling in custom Java key object</h3>
+            <p class="post-card__body">When overriding <code>equals()</code> and <code>hashCode()</code> for custom Pair objects in Java, my HashMap kept returning null even when identical keys were present. Solved it by ensuring prime multipliers in hashCode!</p>
+            <div class="post-card__code-snippet">
+              <pre><code class="code-snippet-text">@Override
+public int hashCode() {
+    return Objects.hash(x, y); // ✅ Solved: Replaced custom XOR with Objects.hash
+}</code></pre>
+            </div>
+            <div class="comm-post-stats-row">
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span>65</span>
+              </div>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <span>12 Replies</span>
+              </div>
+              <button class="post-action-btn trying">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+                View Fix
+              </button>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>620</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- POST 4 -->
+          <article class="post-card" id="post-4">
+            <div class="post-card__header">
+              <img class="comm-contrib-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80" alt="Priya Verma" />
+              <div class="comm-post-header-info">
+                <div class="comm-post-author-row">
+                  <span class="post-card__author">Priya Verma</span>
+                  <span class="comm-verified-check">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#1D72E8"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  </span>
+                  <span class="comm-post-handle">@priya_v · 2h ago</span>
+                </div>
+              </div>
+              <span class="post-status open">Open</span>
+            </div>
+            <h3 class="post-card__title">Sliding window max sum subarray returning incorrect length on negative integers</h3>
+            <p class="post-card__body">Does standard sliding window work when the array contains negative numbers? My pointer logic breaks whenever <code>curr_sum</code> shrinks unexpectedly.</p>
+            <div class="post-card__code-snippet">
+              <pre><code class="code-snippet-text"># Kadane's algorithm works, but how to track max length subarray with sum &gt;= K?
+def maxSubArray(nums, k):
+    left, curr, max_len = 0, 0, 0
+    for right in range(len(nums)):
+        curr += nums[right]
+        ...</code></pre>
+            </div>
+            <div class="comm-post-stats-row">
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span>34</span>
+              </div>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <span>6 Replies</span>
+              </div>
+              <button class="post-action-btn trying">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+                Try Fix (2 trying)
+              </button>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>310</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- POST 5 -->
+          <article class="post-card" id="post-5">
+            <div class="post-card__header">
+              <img class="comm-contrib-avatar" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80" alt="Dev Patel" />
+              <div class="comm-post-header-info">
+                <div class="comm-post-author-row">
+                  <span class="post-card__author">Dev Patel</span>
+                  <span class="comm-verified-check">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#1D72E8"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  </span>
+                  <span class="comm-post-handle">@dev_p · 3h ago</span>
+                </div>
+              </div>
+              <span class="post-status in-progress">In Progress</span>
+            </div>
+            <h3 class="post-card__title">Graph Shortest Path Dijkstra TLE on graph with 10^5 nodes</h3>
+            <p class="post-card__body">My C++ Dijkstra implementation with <code>std::priority_queue</code> runs out of time on large test cases. Is using a Min-Heap with decrease-key faster?</p>
+            <div class="post-card__code-snippet">
+              <pre><code class="code-snippet-text">priority_queue&lt;pair&lt;int,int&gt;, vector&lt;pair&lt;int,int&gt;&gt;, greater&lt;pair&lt;int,int&gt;&gt;&gt; pq;
+pq.push({0, src});
+while (!pq.empty()) {
+    auto [d, u] = pq.top(); pq.pop();
+    if (d &gt; dist[u]) continue; // ⚠️ Missed this check earlier!
+}</code></pre>
+            </div>
+            <div class="comm-post-stats-row">
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span>52</span>
+              </div>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <span>9 Replies</span>
+              </div>
+              <button class="post-action-btn trying">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+                Try Fix (5 trying)
+              </button>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>510</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- POST 6 -->
+          <article class="post-card" id="post-6">
+            <div class="post-card__header">
+              <img class="comm-contrib-avatar" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=150&auto=format&fit=crop&q=80" alt="Zara Khan" />
+              <div class="comm-post-header-info">
+                <div class="comm-post-author-row">
+                  <span class="post-card__author">Zara Khan</span>
+                  <span class="comm-verified-check">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#1D72E8"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  </span>
+                  <span class="comm-post-handle">@zara_k · 4h ago</span>
+                </div>
+              </div>
+              <span class="post-status solved">Solved</span>
+            </div>
+            <h3 class="post-card__title">Trie autocomplete prefix search missing words with shared prefix</h3>
+            <p class="post-card__body">If two words share a long prefix (e.g. "apple" and "app"), my Trie was overwriting <code>isEndOfWord</code> flag. Fixed by using boolean flags per Node!</p>
+            <div class="comm-post-stats-row">
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span>78</span>
+              </div>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <span>14 Replies</span>
+              </div>
+              <button class="post-action-btn trying">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+                View Fix
+              </button>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>740</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- POST 7 -->
+          <article class="post-card" id="post-7">
+            <div class="post-card__header">
+              <img class="comm-contrib-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80" alt="John Wick" />
+              <div class="comm-post-header-info">
+                <div class="comm-post-author-row">
+                  <span class="post-card__author">John Wick</span>
+                  <span class="comm-verified-check">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#1D72E8"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  </span>
+                  <span class="comm-post-handle">@john_w · 5h ago</span>
+                </div>
+              </div>
+              <span class="post-status open">Open</span>
+            </div>
+            <h3 class="post-card__title">Cycle detection in directed graph using Kahn's algorithm topological sort</h3>
+            <p class="post-card__body">How do I distinguish between a valid DAG topological sort ordering and a cycle detection failure when <code>count != V</code> in Kahn's algorithm?</p>
+            <div class="comm-post-stats-row">
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span>29</span>
+              </div>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <span>4 Replies</span>
+              </div>
+              <button class="post-action-btn trying">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+                Try Fix (2 trying)
+              </button>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>280</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- POST 8 -->
+          <article class="post-card" id="post-8">
+            <div class="post-card__header">
+              <img class="comm-contrib-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80" alt="Rahul Srivastava" />
+              <div class="comm-post-header-info">
+                <div class="comm-post-author-row">
+                  <span class="post-card__author">Rahul Srivastava</span>
+                  <span class="comm-verified-check">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#1D72E8"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  </span>
+                  <span class="comm-post-handle">@rahul_sri · 6h ago</span>
+                </div>
+              </div>
+              <span class="post-status solved">Solved</span>
+            </div>
+            <h3 class="post-card__title">Lowest Common Ancestor in Binary Tree with parent pointers O(H) time</h3>
+            <p class="post-card__body">Using two pointer traversal similar to intersection of two linked lists allows finding LCA in O(H) time without extra memory set!</p>
+            <div class="comm-post-stats-row">
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span>48</span>
+              </div>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <span>7 Replies</span>
+              </div>
+              <button class="post-action-btn trying">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+                View Fix
+              </button>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>390</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- POST 9 -->
+          <article class="post-card" id="post-9">
+            <div class="post-card__header">
+              <img class="comm-contrib-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80" alt="Emily Thorne" />
+              <div class="comm-post-header-info">
+                <div class="comm-post-author-row">
+                  <span class="post-card__author">Emily Thorne</span>
+                  <span class="comm-verified-check">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#1D72E8"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  </span>
+                  <span class="comm-post-handle">@emily_t · 7h ago</span>
+                </div>
+              </div>
+              <span class="post-status open">Open</span>
+            </div>
+            <h3 class="post-card__title">Segment Tree range minimum query point update index out of bounds</h3>
+            <p class="post-card__body">When allocating 4 * N size array for Segment Tree, my tree construction fails whenever array size is not a power of 2. What is the exact padding formula?</p>
+            <div class="comm-post-stats-row">
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span>36</span>
+              </div>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <span>5 Replies</span>
+              </div>
+              <button class="post-action-btn trying">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+                Try Fix (2 trying)
+              </button>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>330</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- POST 10 -->
+          <article class="post-card" id="post-10">
+            <div class="post-card__header">
+              <img class="comm-contrib-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" alt="Ethan Clarke" />
+              <div class="comm-post-header-info">
+                <div class="comm-post-author-row">
+                  <span class="post-card__author">Ethan Clarke</span>
+                  <span class="comm-verified-check">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#1D72E8"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  </span>
+                  <span class="comm-post-handle">@ethan_c · 8h ago</span>
+                </div>
+              </div>
+              <span class="post-status in-progress">In Progress</span>
+            </div>
+            <h3 class="post-card__title">LRU Cache O(1) double linked list node deletion NullPointer</h3>
+            <p class="post-card__body">When deleting the tail node during capacity overflow in Java LRU Cache, <code>head.next</code> reference becomes null. Check dummy head/tail pointers!</p>
+            <div class="comm-post-stats-row">
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span>59</span>
+              </div>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <span>11 Replies</span>
+              </div>
+              <button class="post-action-btn trying">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+                Try Fix (3 trying)
+              </button>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>560</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- POST 11 -->
+          <article class="post-card" id="post-11">
+            <div class="post-card__header">
+              <img class="comm-contrib-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Olivia Pierce" />
+              <div class="comm-post-header-info">
+                <div class="comm-post-author-row">
+                  <span class="post-card__author">Olivia Pierce</span>
+                  <span class="comm-verified-check">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#1D72E8"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  </span>
+                  <span class="comm-post-handle">@olivia_p · 9h ago</span>
+                </div>
+              </div>
+              <span class="post-status solved">Solved</span>
+            </div>
+            <h3 class="post-card__title">Merge K Sorted Lists min heap priority queue comparator crash</h3>
+            <p class="post-card__body">Custom C++ comparator lambda function in <code>priority_queue</code> must be marked <code>const</code> or pass struct with <code>operator()</code> to prevent compilation crash.</p>
+            <div class="comm-post-stats-row">
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span>83</span>
+              </div>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <span>16 Replies</span>
+              </div>
+              <button class="post-action-btn trying">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+                View Fix
+              </button>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>810</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- POST 12 -->
+          <article class="post-card" id="post-12">
+            <div class="post-card__header">
+              <img class="comm-contrib-avatar" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=150&auto=format&fit=crop&q=80" alt="Tanvi Singh" />
+              <div class="comm-post-header-info">
+                <div class="comm-post-author-row">
+                  <span class="post-card__author">Tanvi Singh</span>
+                  <span class="comm-verified-check">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#1D72E8"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  </span>
+                  <span class="comm-post-handle">@tanvi_s · 10h ago</span>
+                </div>
+              </div>
+              <span class="post-status open">Open</span>
+            </div>
+            <h3 class="post-card__title">Dynamic Programming 0/1 Knapsack space optimization array overwriting</h3>
+            <p class="post-card__body">When optimizing 2D DP array to 1D array for Knapsack, why must the inner loop iterate backwards from Capacity down to weight[i]?</p>
+            <div class="comm-post-stats-row">
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span>47</span>
+              </div>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <span>8 Replies</span>
+              </div>
+              <button class="post-action-btn trying">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+                Try Fix (4 trying)
+              </button>
+              <div class="comm-post-stat-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>490</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+      </main>
+
+      <!-- RIGHT SIDEBAR: DISCOVER CONNECTIONS & TOP CONTRIBUTORS -->
+      <aside class="comm-right-panel">
+        
+        <!-- DISCOVER CONNECTIONS CARD -->
+        <div class="comm-side-card">
+          <div class="comm-side-header">
+            <span class="comm-side-title">Discover New Connections</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </div>
+
+          <div class="comm-contrib-list">
+            <div class="comm-contrib-row">
+              <div class="comm-contrib-user">
+                <img class="comm-contrib-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" alt="Elon Musk" />
+                <div class="comm-contrib-info">
+                  <span class="comm-contrib-name">Elon Musk <svg width="12" height="12" viewBox="0 0 24 24" fill="#1D72E8"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
+                  <span class="comm-contrib-handle">@elon_coder</span>
+                </div>
+              </div>
+              <button class="comm-follow-btn">+ Follow</button>
+            </div>
+
+            <div class="comm-contrib-row">
+              <div class="comm-contrib-user">
+                <img class="comm-contrib-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80" alt="Emily Thorne" />
+                <div class="comm-contrib-info">
+                  <span class="comm-contrib-name">Emily Thorne <svg width="12" height="12" viewBox="0 0 24 24" fill="#1D72E8"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
+                  <span class="comm-contrib-handle">@emily_t</span>
+                </div>
+              </div>
+              <button class="comm-follow-btn">+ Follow</button>
+            </div>
+
+            <div class="comm-contrib-row">
+              <div class="comm-contrib-user">
+                <img class="comm-contrib-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Olivia Pierce" />
+                <div class="comm-contrib-info">
+                  <span class="comm-contrib-name">Olivia Pierce <svg width="12" height="12" viewBox="0 0 24 24" fill="#1D72E8"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
+                  <span class="comm-contrib-handle">@olivia_p</span>
+                </div>
+              </div>
+              <button class="comm-follow-btn">+ Follow</button>
+            </div>
+
+            <div class="comm-contrib-row">
+              <div class="comm-contrib-user">
+                <img class="comm-contrib-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80" alt="Ethan Clarke" />
+                <div class="comm-contrib-info">
+                  <span class="comm-contrib-name">Ethan Clarke <svg width="12" height="12" viewBox="0 0 24 24" fill="#1D72E8"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
+                  <span class="comm-contrib-handle">@ethan_c</span>
+                </div>
+              </div>
+              <button class="comm-follow-btn">+ Follow</button>
+            </div>
+          </div>
+
+          <a href="#" class="comm-more-link">Show more ∨</a>
+        </div>
+
+        <!-- FOOTER LINKS -->
+        <div class="comm-footer-links">
+          <a href="#">Privacy Policy</a> · <a href="#">Accessibility</a><br>
+          <a href="#">Cookie Policy</a> · <a href="#">Ad Info</a><br>
+          <a href="#">Terms of Service</a> · <a href="#">More...</a><br>
+          <span style="color:#94A3B8; margin-top:4px; display:inline-block;">© 2026 BugBuster Inc.</span>
+        </div>
+
+      </aside>
+
+    </div>
+
+  </div>
+</section>
+
+<script src="main.js"></script>
+<script>
+  // Dynamic question posting script
+  document.getElementById('btn-submit-question')?.addEventListener('click', function() {
+    const input = document.getElementById('new-question-input');
+    if (input && input.value.trim()) {
+      const title = input.value.trim();
+      const postsList = document.getElementById('posts-list');
+
+      const article = document.createElement('article');
+      article.className = 'post-card';
+      article.innerHTML = `
+        <div class="post-card__header">
+          <img class="comm-contrib-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="You" />
+          <div class="comm-post-header-info">
+            <div class="comm-post-author-row">
+              <span class="post-card__author">You</span>
+              <span class="comm-verified-check">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#1D72E8"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              </span>
+              <span class="comm-post-handle">@you · Just now</span>
+            </div>
+          </div>
+          <span class="post-status open">Open</span>
+        </div>
+        <h3 class="post-card__title">${title.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</h3>
+        <p class="post-card__body">Looking for help on this problem — can anyone suggest the optimal approach or review my code?</p>
+        
+        <div class="comm-post-stats-row">
+          <div class="comm-post-stat-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <span>0</span>
+          </div>
+          <div class="comm-post-stat-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span>0 Replies</span>
+          </div>
+          <button class="post-action-btn trying">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 5v14l11-7z"/></svg>
+            Try Fix (1 trying)
+          </button>
+          <div class="comm-post-stat-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <span>1</span>
+          </div>
+        </div>
+      `;
+
+      postsList.insertBefore(article, postsList.firstChild);
+      input.value = '';
+    }
+  });
+
+  // Follow toggle buttons
+  document.querySelectorAll('.comm-follow-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      if (btn.textContent === '+ Follow') {
+        btn.textContent = 'Following';
+        btn.style.background = '#1D72E8';
+        btn.style.color = '#FFFFFF';
+      } else {
+        btn.textContent = '+ Follow';
+        btn.style.background = '#FFFFFF';
+        btn.style.color = '#0F172A';
+      }
+    });
+  });
+</script>
+</body>
+</html>

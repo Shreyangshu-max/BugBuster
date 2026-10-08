@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BugBuster — Personal Dashboard</title>
+  <meta name="description" content="BugBuster Personal Dashboard — track your problem solving speed, completed vs pending questions, courses left, and language mastery." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="pages.css" />
+</head>
+<body class="dash-page-body">
+
+<!-- STICKY NAV -->
+<header class="nav" id="nav" role="banner">
+  <div class="nav__inner">
+    <a class="nav__wordmark" href="/" aria-label="BugBuster home">Bug<span class="wm-accent">Buster</span></a>
+    <nav class="nav__links" aria-label="App features">
+      <a href="/" class="nav__link">Home</a>
+      <a href="/editor" class="nav__link">Editor</a>
+      <a href="/community" class="nav__link">Community</a>
+      <a href="/challenges" class="nav__link">Challenges</a>
+      <a href="/leaderboard" class="nav__link">Leaderboard</a>
+      <a href="/recall" class="nav__link">Recall</a>
+      <a href="/dashboard" class="nav__link active" aria-current="page">Dashboard</a>
+    </nav>
+    <div class="nav__right">
+      <a href="/editor" class="btn-primary">Try Editor</a>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- DASHBOARD MAIN CONTAINER -->
+<div class="photo-dash-container">
+
+  <!-- TOPBAR HEADER -->
+  <div class="dash-topbar">
+    <div class="dash-topbar__left">
+      <div class="dash-topbar__logo">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <div>
+        <h1 class="dash-topbar__title">Welcome, Aarav</h1>
+        <p class="dash-topbar__sub">Your personal coding & problem solving overview</p>
+      </div>
+    </div>
+    <div class="dash-topbar__right">
+      <div class="dash-search-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search questions & tracks..." />
+      </div>
+      <button class="dash-user-btn" aria-label="User profile">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN PHOTO GRID -->
+  <div class="photo-dash-grid">
+
+    <!-- LEFT SECTION -->
+    <div class="photo-dash-left">
+
+      <!-- TOP ROW: PROFILE CARD + STACK -->
+      <div class="p-top-row">
+
+        <!-- PROFILE CARD -->
+        <div class="p-profile-card">
+          <button class="p-card-top-action" aria-label="Refresh profile">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          </button>
+          <div class="p-profile-card__title">Profile</div>
+          
+          <div class="p-avatar-wrap">
+            <img class="p-avatar-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Aarav Shah avatar" />
+            <div class="p-avatar-star">★</div>
+          </div>
+
+          <div class="p-profile-name">Aarav Shah</div>
+          <div class="p-profile-role">Level 4 Challenger</div>
+
+          <div class="p-stats-pills">
+            <div class="p-stat-pill orange" title="Global Rank #14">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              #14
+            </div>
+            <div class="p-stat-pill red" title="56 Questions Solved">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+              56
+            </div>
+            <div class="p-stat-pill trophy" title="12 Badges Earned">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.45 1-1 1H7v4h10v-4h-2c-.55 0-1-.45-1-1v-2.34"/></svg>
+              12
+            </div>
+          </div>
+        </div>
+
+        <!-- MIDDLE STACK -->
+        <div class="p-mid-stack">
+          
+          <!-- GRADIENT CARDS ROW -->
+          <div class="p-cards-row">
+            
+            <!-- WARM CARD: QUESTIONS COMPLETED -->
+            <div class="p-grad-card warm">
+              <div class="p-grad-card__header">
+                <div class="p-grad-card__title">Questions Completed</div>
+                <button class="p-grad-card__btn" aria-label="Completed stats">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                </button>
+              </div>
+              <div>
+                <div class="p-grad-card__num">83%</div>
+                <div class="p-grad-card__sub">42 of 50 Solved</div>
+              </div>
+            </div>
+
+            <!-- COOL CARD: QUESTIONS NOT COMPLETED -->
+            <div class="p-grad-card cool">
+              <div class="p-grad-card__header">
+                <div class="p-grad-card__title">Questions Not Completed</div>
+                <button class="p-grad-card__btn" aria-label="Pending stats">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </button>
+              </div>
+              <div>
+                <div class="p-grad-card__num">17%</div>
+                <div class="p-grad-card__sub">8 Pending / In Progress</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ACTIVE LANGUAGE TRACKS CARD -->
+          <div class="p-trackers-card">
+            <div>
+              <div class="p-trackers-info__title">Active Language Tracks</div>
+              <div class="p-trackers-info__sub">3 active environments</div>
+            </div>
+            <div class="p-trackers-icons">
+              <div class="p-tracker-badge" style="color:#007396;">Java</div>
+              <div class="p-tracker-badge" style="color:#00599C;">C++</div>
+              <div class="p-tracker-badge" style="color:#3776AB;">Py</div>
+              <div class="p-tracker-badge" style="color:#64748B;">...</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- BOTTOM SECTION: SOLVING SPEED ANALYTICS -->
+      <div class="p-analytics-card">
+        <div class="p-analytics-header">
+          <div>
+            <div class="p-analytics-title">Solving Speed</div>
+            <div class="p-analytics-sub">Average time taken per problem over months (in minutes)</div>
+          </div>
+          <select class="p-analytics-select">
+            <option>Range: Last month</option>
+            <option>Range: Last week</option>
+          </select>
+        </div>
+
+        <!-- SVG CHART AREA -->
+        <div class="p-chart-area">
+          <div class="p-chart-months">
+            <span class="p-chart-month">Aug</span>
+            <span class="p-chart-month active">Sep</span>
+            <span class="p-chart-month">Oct</span>
+            <span class="p-chart-month">Nov</span>
+          </div>
+          <div class="p-chart-svg-wrap">
+            <div class="p-chart-tooltip">
+              Week 8<br><span style="font-weight:400; color:#64748B;">12.5 min avg</span>
+            </div>
+            <svg width="100%" height="100%" viewBox="0 0 500 180" preserveAspectRatio="none" fill="none">
+              <!-- Grid Dotted Lines -->
+              <line x1="0" y1="40" x2="500" y2="40" stroke="#F1F5F9" stroke-linecap="round" stroke-dasharray="4 4" />
+              <line x1="0" y1="90" x2="500" y2="90" stroke="#F1F5F9" stroke-linecap="round" stroke-dasharray="4 4" />
+              <line x1="0" y1="140" x2="500" y2="140" stroke="#F1F5F9" stroke-linecap="round" stroke-dasharray="4 4" />
+
+              <!-- Target Benchmark Curve (Blue) -->
+              <path d="M 0 110 Q 70 140 130 110 T 200 30 T 320 100 T 500 70" stroke="#60A5FA" stroke-width="2.5" fill="none" stroke-linecap="round" />
+
+              <!-- Actual Solve Time Curve (Red/Pink) -->
+              <path d="M 0 90 Q 50 80 90 100 T 170 80 T 250 140 T 360 40 T 500 120" stroke="#FF5A78" stroke-width="2.5" fill="none" stroke-linecap="round" />
+
+              <!-- Active Point Circle -->
+              <circle cx="200" cy="30" r="5" fill="#FFFFFF" stroke="#3B82F6" stroke-width="3" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="p-chart-footer">
+          <div class="p-chart-legend">
+            <div class="p-legend-item">
+              <span class="p-legend-sq red"></span>
+              <span>Your Avg Solve Time</span>
+            </div>
+            <div class="p-legend-item">
+              <span class="p-legend-sq purple"></span>
+              <span>Target Benchmark</span>
+            </div>
+          </div>
+          <div class="p-chart-stat-right">
+            <div class="p-chart-stat-num">14 min</div>
+            <div class="p-chart-stat-lbl">Avg. Time / Problem</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT SIDEBAR PANEL -->
+    <div class="photo-dash-right">
+
+      <!-- PENDING QUESTIONS & COURSES CARD -->
+      <div class="p-meetings-card">
+        <div class="p-meetings-header">
+          <div class="p-meetings-title">Pending Questions & Courses</div>
+          <button class="dash-user-btn" style="width:32px; height:32px;" aria-label="Courses icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </button>
+        </div>
+
+        <div class="p-meetings-list">
+          <div class="p-meeting-item">
+            <div class="p-meeting-time">
+              <span class="p-m-date" style="color:#EA580C; font-weight:700;">25% left</span>
+              <span class="p-m-hour">75% done</span>
+            </div>
+            <div class="p-meeting-info">
+              <span class="p-m-title">Binary Search Trees Course</span>
+              <span class="p-m-platform"><span class="p-m-dot"></span>Java Track</span>
+            </div>
+            <div class="p-meeting-arrow">↗</div>
+          </div>
+
+          <div class="p-meeting-item">
+            <div class="p-meeting-time">
+              <span class="p-m-date" style="color:#D97706; font-weight:700;">40% left</span>
+              <span class="p-m-hour">60% done</span>
+            </div>
+            <div class="p-meeting-info">
+              <span class="p-m-title">Graph Traversal & BFS/DFS</span>
+              <span class="p-m-platform"><span class="p-m-dot" style="background:#10B981;"></span>C++ Track</span>
+            </div>
+            <div class="p-meeting-arrow">↗</div>
+          </div>
+
+          <div class="p-meeting-item">
+            <div class="p-meeting-time">
+              <span class="p-m-date" style="color:#DC2626; font-weight:700;">60% left</span>
+              <span class="p-m-hour">40% done</span>
+            </div>
+            <div class="p-meeting-info">
+              <span class="p-m-title">Dynamic Programming Masterclass</span>
+              <span class="p-m-platform"><span class="p-m-dot" style="background:#10B981;"></span>Python Track</span>
+            </div>
+            <div class="p-meeting-arrow">↗</div>
+          </div>
+
+          <div class="p-meeting-item">
+            <div class="p-meeting-time">
+              <span class="p-m-date" style="color:#16A34A; font-weight:700;">15% left</span>
+              <span class="p-m-hour">85% done</span>
+            </div>
+            <div class="p-meeting-info">
+              <span class="p-m-title">Sliding Window & Two Pointers</span>
+              <span class="p-m-platform"><span class="p-m-dot"></span>Java Track</span>
+            </div>
+            <div class="p-meeting-arrow">↗</div>
+          </div>
+        </div>
+
+        <a href="/challenges" class="p-meetings-link">View all pending courses & questions ></a>
+      </div>
+
+      <!-- LANGUAGE MASTERY CARD -->
+      <div class="p-developed-card">
+        <div class="p-developed-title">Language Mastery</div>
+        <div class="p-developed-sub">Proficiency across programming tracks</div>
+
+        <div class="p-skills-list">
+          <div class="p-skill-item">
+            <span class="p-skill-name">Java</span>
+            <div class="p-skill-bar-wrap"><div class="p-skill-bar-fill" style="width: 92%;"></div></div>
+            <span class="p-skill-val">92%</span>
+            <div class="p-skill-dir up">↑</div>
+          </div>
+
+          <div class="p-skill-item">
+            <span class="p-skill-name">Python</span>
+            <div class="p-skill-bar-wrap"><div class="p-skill-bar-fill" style="width: 78%;"></div></div>
+            <span class="p-skill-val">78%</span>
+            <div class="p-skill-dir up">↑</div>
+          </div>
+
+          <div class="p-skill-item">
+            <span class="p-skill-name">C++</span>
+            <div class="p-skill-bar-wrap"><div class="p-skill-bar-fill" style="width: 65%;"></div></div>
+            <span class="p-skill-val">65%</span>
+            <div class="p-skill-dir down">↓</div>
+          </div>
+
+          <div class="p-skill-item">
+            <span class="p-skill-name">Data Struct.</span>
+            <div class="p-skill-bar-wrap"><div class="p-skill-bar-fill" style="width: 84%;"></div></div>
+            <span class="p-skill-val">84%</span>
+            <div class="p-skill-dir up">↑</div>
+          </div>
+
+          <div class="p-skill-item">
+            <span class="p-skill-name">Algorithms</span>
+            <div class="p-skill-bar-wrap"><div class="p-skill-bar-fill" style="width: 71%;"></div></div>
+            <span class="p-skill-val">71%</span>
+            <div class="p-skill-dir down">↓</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>

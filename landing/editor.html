@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BugBuster — Editor</title>
+  <meta name="description" content="AI-assisted coding evaluation and progressive hint system powered by OnlineCompiler.io and Gemini AI." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  
+  <!-- Ace Editor -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.35.4/ace.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.35.4/mode-python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.35.4/mode-javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.35.4/mode-java.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.35.4/mode-c_cpp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.35.4/theme-one_dark.min.js"></script>
+
+  <!-- Environment Variables Loader -->
+  <script src="/env.js"></script>
+
+  <!-- Supabase Client JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="editor-styles.css" />
+</head>
+<body>
+
+<!-- ═══════ BUGBUSTER NAV ═══════ -->
+<header class="nav" id="nav" role="banner">
+  <div class="nav__inner">
+    <a class="nav__wordmark" href="/" aria-label="BugBuster home">Bug<span class="wm-accent">Buster</span></a>
+    <nav class="nav__links" aria-label="App features">
+      <a href="/" class="nav__link">Home</a>
+      <a href="/editor.html" class="nav__link active" aria-current="page">Editor</a>
+      <a href="/community" class="nav__link">Community</a>
+      <a href="/challenges" class="nav__link">Challenges</a>
+      <a href="/leaderboard" class="nav__link">Leaderboard</a>
+      <a href="/recall" class="nav__link">Recall</a>
+      <a href="/dashboard" class="nav__link">Dashboard</a>
+    </nav>
+    <div class="nav__right">
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="nav__drawer" id="nav-drawer" aria-hidden="true">
+    <a href="/" class="nav__link">Home</a>
+    <a href="/editor.html" class="nav__link active">Editor</a>
+    <a href="/community" class="nav__link">Community</a>
+    <a href="/challenges" class="nav__link">Challenges</a>
+    <a href="/leaderboard" class="nav__link">Leaderboard</a>
+    <a href="/recall" class="nav__link">Recall</a>
+    <a href="/dashboard" class="nav__link">Dashboard</a>
+  </div>
+</header>
+
+<!-- ═══════ EDITOR APP ═══════ -->
+<div class="editor-app" id="editor-app">
+
+  <!-- ── Secondary action bar ── -->
+  <div class="ed-topbar">
+    <div class="ed-breadcrumb">
+      <span class="bc-logo">BugBuster</span>
+      <span class="bc-sep">›</span>
+      <span class="bc-page">Editor &amp; AI Evaluator</span>
+    </div>
+
+    <!-- Live Workspace Timer -->
+    <div class="ed-timer" id="ed-timer" style="display:none;" title="Session Timer">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span id="timer-display">00:00</span>
+    </div>
+
+    <div class="ed-tabs">
+      <button class="ed-tab active" id="tab-coding">
+        <span class="tab-pip"></span>
+        <span>Coding Space</span>
+      </button>
+    </div>
+
+    <div class="ed-actions">
+      <button class="ed-btn run" id="run-btn" disabled>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <span>Run Code</span>
+      </button>
+      <button class="ed-btn debug" id="eval-btn" disabled>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+        <span>Evaluate AI</span>
+      </button>
+      <div class="ed-sep"></div>
+      <button class="ed-btn publish" id="publish-btn" disabled>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        <span>Publish</span>
+      </button>
+      <button class="ed-btn post" id="post-btn" disabled>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <span>Post</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Three-column body ── -->
+  <div class="ed-body">
+
+    <!-- ═══ LEFT: QUESTION PANEL (Gradient Blue) ═══ -->
+    <aside class="q-panel" id="q-panel">
+      <div class="q-panel__head">
+        <div class="q-panel__title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span>Question Setup</span>
+        </div>
+        <div class="q-panel__sub">Upload a file or type your problem description, pick a language, and generate your workspace.</div>
+      </div>
+
+      <!-- Drag & drop upload -->
+      <div class="upload-zone" id="upload-zone" role="button" tabindex="0" aria-label="Upload question file">
+        <div class="upload-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <div class="upload-label">
+          Drop file here or <strong id="browse-trigger">Browse</strong>
+        </div>
+        <div class="upload-sub">PDF, PNG, JPG, TXT — max 10 MB</div>
+        <input type="file" id="file-input-hidden" accept=".pdf,.txt,.png,.jpg,.jpeg,.webp" />
+      </div>
+
+      <!-- Uploaded file badge -->
+      <div class="uploaded-badge" id="uploaded-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <span class="ub-name" id="ub-name">—</span>
+        <button class="ub-clear" id="ub-clear" aria-label="Remove file">✕</button>
+      </div>
+
+      <!-- OR -->
+      <div class="q-or"><span class="q-or-text">OR</span></div>
+
+      <!-- Textarea (Faded White) -->
+      <div class="q-textarea-wrap">
+        <textarea
+          class="q-textarea"
+          id="q-textarea"
+          placeholder="Type your question prompt here...&#10;&#10;e.g. Given an array of integers, return the sum of all positive numbers."
+          spellcheck="false"
+        ></textarea>
+      </div>
+
+      <!-- Controls -->
+      <div class="q-controls">
+        <div class="q-lang-row">
+          <span class="q-lang-label">Compiler / Lang</span>
+          <select class="q-lang-select" id="q-lang">
+            <option value="python">Python (python-3.14)</option>
+            <option value="cpp">C++ (g++-15)</option>
+            <option value="c">C (gcc-15)</option>
+            <option value="java">Java (openjdk-25)</option>
+          </select>
+        </div>
+        <button class="q-generate-btn" id="generate-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
+          <span>Generate Workspace →</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ═══ CENTER: CODE EDITOR ═══ -->
+    <main class="code-panel" id="code-panel">
+
+      <!-- File tab bar -->
+      <div class="code-tabs-bar" id="code-tabs-bar">
+        <div class="code-file-tab active" id="active-file-tab">
+          <span class="ft-dot"></span>
+          <span id="file-tab-name">solution.py</span>
+          <span class="ft-close" id="ft-close">✕</span>
+        </div>
+      </div>
+
+      <!-- Editor viewport -->
+      <div class="editor-viewport" id="editor-viewport">
+
+        <!-- Empty state -->
+        <div class="empty-view" id="empty-view">
+          <div class="empty-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="empty-title">No workspace active</div>
+          <div class="empty-sub">Enter your question on the left panel and click <strong>Generate Workspace</strong> to start coding.</div>
+        </div>
+
+        <!-- Loading state -->
+        <div class="loading-view" id="loading-view">
+          <div class="loading-spinner"></div>
+          <div class="loading-text" id="loading-text">Preparing your workspace...</div>
+          <div class="loading-steps" id="loading-steps">
+            <div class="loading-step" id="ls-1">[1] Reading question prompt...</div>
+            <div class="loading-step" id="ls-2">[2] Configuring OnlineCompiler.io environment...</div>
+            <div class="loading-step" id="ls-3">[3] Connecting Gemini AI reasoning pipeline...</div>
+            <div class="loading-step" id="ls-4">[4] Ready!</div>
+          </div>
+        </div>
+
+        <!-- Ace editor -->
+        <div id="ace-editor"></div>
+      </div>
+
+      <!-- Execution Console Panel -->
+      <div class="console-panel" id="console-panel">
+        <div class="console-header">
+          <div class="console-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            <span>Execution Console (OnlineCompiler.io)</span>
+            <span class="console-status-badge idle" id="console-status">Idle</span>
+          </div>
+          <div class="console-actions">
+            <span class="console-exec-time" id="console-exec-time"></span>
+            <button class="console-clear-btn" id="console-clear-btn" title="Clear output">Clear</button>
+          </div>
+        </div>
+        <div class="console-body" id="console-body">
+          <div class="console-empty">Run your code to execute securely via OnlineCompiler.io sandbox.</div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ═══ RIGHT: HINTS & AI EVALUATION PANEL (Gradient Purple) ═══ -->
+    <aside class="hints-panel" id="hints-panel">
+      <div class="hp-header">
+        <div class="hp-title-row">
+          <span class="hp-title">AI Evaluation &amp; Hints</span>
+          <span class="hp-badge" id="hp-badge">L0 / 3</span>
+        </div>
+        <div class="hp-sub" id="hp-sub">Gemini AI evaluates your logic and generates progressive hints step-by-step.</div>
+
+        <div class="level-meter" id="level-meter">
+          <div class="lm-pip" id="pip-1"></div>
+          <div class="lm-pip" id="pip-2"></div>
+          <div class="lm-pip" id="pip-3"></div>
+        </div>
+
+        <div style="display:flex;gap:8px;margin-top:4px;">
+          <button class="unlock-btn" id="unlock-btn" style="flex:1;" disabled>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span id="unlock-btn-text">Generate workspace first</span>
+          </button>
+          <button class="surrender-btn" id="surrender-btn" disabled>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+            <span>Surrender</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Waiting message -->
+      <div class="hp-waiting" id="hp-waiting">
+        <div class="hp-waiting-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.66 16.03A5 5 0 0 1 4 11V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5a5 5 0 0 1-5.66 5.03"/><path d="M12 16v6"/><path d="M8 22h8"/></svg>
+        </div>
+        <div class="hp-waiting-text">Evaluation hints will populate here after running your code or clicking Evaluate AI.</div>
+      </div>
+
+      <!-- Hint cards container -->
+      <div class="hints-scroll hidden" id="hints-scroll"></div>
+
+      <!-- Ask AI -->
+      <div class="ai-box">
+        <div class="ai-label">Ask BugBuster AI</div>
+        <div class="ai-row">
+          <span class="ai-spark">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
+          </span>
+          <input class="ai-input" id="ai-input" type="text" placeholder="Ask AI about algorithm or syntax..." autocomplete="off" disabled />
+          <button class="ai-send" id="ai-send" aria-label="Send query" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<script>
+'use strict';
+
+/* ─────────────────────────────────────────────
+   AUTO-LOAD QUESTION FROM CHALLENGES PAGE
+───────────────────────────────────────────── */
+(function loadPendingQuestion() {
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    let question = urlParams.get('question') || urlParams.get('problem') || urlParams.get('prompt');
+    let lang = urlParams.get('lang');
+
+    if (!question) {
+      question = sessionStorage.getItem('bugbuster_selected_question') || localStorage.getItem('bugbuster_selected_question');
+    }
+
+    let hasPrefilledQuestion = false;
+
+    if (question) {
+      const qTextarea = document.getElementById('q-textarea');
+      if (qTextarea) {
+        let decoded = question;
+        try {
+          decoded = decodeURIComponent(question);
+        } catch (e) {
+          decoded = question;
+        }
+        qTextarea.value = decoded;
+        hasPrefilledQuestion = true;
+        
+        sessionStorage.removeItem('bugbuster_selected_question');
+        localStorage.removeItem('bugbuster_selected_question');
+      }
+    }
+
+    if (lang) {
+      const qLang = document.getElementById('q-lang');
+      if (qLang) {
+        const lowerLang = lang.toLowerCase();
+        if (lowerLang.includes('py')) qLang.value = 'python';
+        else if (lowerLang.includes('c++') || lowerLang.includes('cpp')) qLang.value = 'cpp';
+        else if (lowerLang.includes('java')) qLang.value = 'java';
+        else if (lowerLang === 'c') qLang.value = 'c';
+      }
+    }
+
+    // Auto-initialize workspace and Supabase coding_sessions table row if opened from Challenges
+    if (hasPrefilledQuestion) {
+      window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+          if (typeof generateWorkspace === 'function') {
+            console.log('[Editor] Auto-generating workspace and Supabase session for challenge question...');
+            generateWorkspace();
+          }
+        }, 150);
+      });
+    }
+  } catch (err) {
+    console.warn('[Editor] Error loading prefilled challenge question:', err);
+  }
+})();
+
+/* ─────────────────────────────────────────────
+   LANGUAGE & STARTER CONFIG (Blank Canvas)
+───────────────────────────────────────────── */
+const LANG_CONFIG = {
+  python: { ext: 'solution.py', ace: 'ace/mode/python', starter: '# Start Coding\n' },
+  cpp:    { ext: 'solution.cpp', ace: 'ace/mode/c_cpp', starter: '// Start Coding\n' },
+  c:      { ext: 'solution.c', ace: 'ace/mode/c_cpp', starter: '// Start Coding\n' },
+  java:   { ext: 'Solution.java', ace: 'ace/mode/java', starter: '// Start Coding\n' },
+};
+
+/* ─────────────────────────────────────────────
+   UPLOAD & FILE SETUP
+───────────────────────────────────────────── */
+const uploadZone = document.getElementById('upload-zone');
+const fileInput = document.getElementById('file-input-hidden');
+const browseTrigger = document.getElementById('browse-trigger');
+const uploadedBadge = document.getElementById('uploaded-badge');
+const ubName = document.getElementById('ub-name');
+const ubClear = document.getElementById('ub-clear');
+let uploadedFile = null;
+
+if (browseTrigger && fileInput) browseTrigger.addEventListener('click', () => fileInput.click());
+if (uploadZone && fileInput) {
+  uploadZone.addEventListener('click', e => { if (e.target !== browseTrigger) fileInput.click(); });
+  uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
+  uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+  uploadZone.addEventListener('drop', e => {
+    e.preventDefault();
+    uploadZone.classList.remove('drag-over');
+    if (e.dataTransfer.files[0]) setUploadedFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', () => { if (fileInput.files[0]) setUploadedFile(fileInput.files[0]); });
+}
+
+function setUploadedFile(file) {
+  uploadedFile = file;
+  ubName.textContent = file.name;
+  uploadedBadge.classList.add('visible');
+  uploadZone.style.opacity = '.5';
+  if (file.name.match(/\.(txt|py|cpp|c|java)$/i)) {
+    const reader = new FileReader();
+    reader.onload = e => { document.getElementById('q-textarea').value = e.target.result; };
+    reader.readAsText(file);
+  }
+}
+
+if (ubClear) {
+  ubClear.addEventListener('click', () => {
+    uploadedFile = null;
+    fileInput.value = '';
+    uploadedBadge.classList.remove('visible');
+    uploadZone.style.opacity = '';
+  });
+}
+
+/* ─────────────────────────────────────────────
+   SUPABASE INTEGRATION (coding_sessions)
+───────────────────────────────────────────── */
+const SUPABASE_URL = (window.ENV && window.ENV.NEXT_PUBLIC_SUPABASE_URL) || '';
+const SUPABASE_KEY = (window.ENV && window.ENV.NEXT_PUBLIC_SUPABASE_ANON_KEY) || '';
+let supabaseClient = null;
+let currentSessionId = null;
+let codeDebounceTimer = null;
+
+try {
+  if (window.supabase && typeof window.supabase.createClient === 'function') {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    console.log('[Supabase] Client connected successfully.');
+  }
+} catch (e) {
+  console.warn('[Supabase] Client initialization failed silently:', e);
+}
+
+async function createDBSession(questionText, starterCode) {
+  if (!supabaseClient) return;
+  try {
+    const now = new Date().toISOString();
+    const payload = {
+      question_entered: questionText || '',
+      code_entered: starterCode || '',
+      error_count: 0,
+      hint1: null,
+      hint2: null,
+      hint3: null,
+      surrendered: false,
+      time_taken: 0,
+      created_at: now,
+      updated_at: now
+    };
+    const { data, error } = await supabaseClient
+      .from('coding_sessions')
+      .insert([payload])
+      .select('id')
+      .single();
+
+    if (error) {
+      console.warn('[Supabase] createDBSession error:', error.message || error);
+    } else if (data && data.id) {
+      currentSessionId = data.id;
+      console.log('[Supabase] Active session ID:', currentSessionId);
+    }
+  } catch (err) {
+    console.warn('[Supabase] createDBSession exception:', err);
+  }
+}
+
+async function updateDBSession(fields = {}) {
+  if (!supabaseClient || !currentSessionId) return;
+  try {
+    const payload = {
+      ...fields,
+      time_taken: timerSeconds,
+      updated_at: new Date().toISOString()
+    };
+    const { error } = await supabaseClient
+      .from('coding_sessions')
+      .update(payload)
+      .eq('id', currentSessionId);
+
+    if (error) {
+      console.warn('[Supabase] updateDBSession error:', error.message || error);
+    }
+  } catch (err) {
+    console.warn('[Supabase] updateDBSession exception:', err);
+  }
+}
+
+/* ─────────────────────────────────────────────
+   LIVE WORKSPACE TIMER
+───────────────────────────────────────────── */
+let timerInterval = null;
+let timerSeconds = 0;
+
+function startWorkspaceTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+  timerSeconds = 0;
+  const timerEl = document.getElementById('ed-timer');
+  if (timerEl) timerEl.style.display = 'inline-flex';
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    timerSeconds++;
+    updateTimerDisplay();
+    if (timerSeconds % 15 === 0 && currentSessionId) {
+      updateDBSession({});
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const displayEl = document.getElementById('timer-display');
+  if (!displayEl) return;
+  const mins = Math.floor(timerSeconds / 60);
+  const secs = timerSeconds % 60;
+  displayEl.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+}
+
+/* ─────────────────────────────────────────────
+   ACE EDITOR INITIALIZATION
+───────────────────────────────────────────── */
+let aceEditor = null;
+let editorReady = false;
+
+function initAce(lang) {
+  const cfg = LANG_CONFIG[lang] || LANG_CONFIG.python;
+  if (!aceEditor) {
+    aceEditor = ace.edit('ace-editor');
+    aceEditor.setTheme('ace/theme/one_dark');
+    aceEditor.setOptions({
+      fontSize: '14px',
+      fontFamily: "'JetBrains Mono', monospace",
+      showPrintMargin: false,
+      tabSize: 4,
+      useSoftTabs: true,
+      highlightActiveLine: true,
+      showLineNumbers: true,
+      showGutter: true,
+      wrap: false
+    });
+
+    // Debounced code edit tracker for Supabase coding_sessions
+    aceEditor.on('change', () => {
+      if (!currentSessionId) return;
+      if (codeDebounceTimer) clearTimeout(codeDebounceTimer);
+      codeDebounceTimer = setTimeout(() => {
+        const code = aceEditor.getValue();
+        updateDBSession({ code_entered: code });
+      }, 750);
+    });
+  }
+  aceEditor.session.setMode(cfg.ace);
+  aceEditor.setValue(cfg.starter, 1);
+  aceEditor.focus();
+  editorReady = true;
+}
+
+/* ─────────────────────────────────────────────
+   GENERATE WORKSPACE
+───────────────────────────────────────────── */
+const generateBtn = document.getElementById('generate-btn');
+const emptyView = document.getElementById('empty-view');
+const loadingView = document.getElementById('loading-view');
+const aceEditorEl = document.getElementById('ace-editor');
+const fileTabName = document.getElementById('file-tab-name');
+const qLang = document.getElementById('q-lang');
+
+if (generateBtn) generateBtn.addEventListener('click', generateWorkspace);
+
+async function generateWorkspace() {
+  const question = document.getElementById('q-textarea').value.trim();
+  if (!question && !uploadedFile) {
+    const ta = document.getElementById('q-textarea');
+    ta.style.borderColor = '#EF4444';
+    setTimeout(() => ta.style.borderColor = '', 1000);
+    return;
+  }
+
+  const lang = qLang.value;
+  const cfg = LANG_CONFIG[lang] || LANG_CONFIG.python;
+  fileTabName.textContent = cfg.ext;
+
+  generateBtn.disabled = true;
+  generateBtn.innerHTML = '<span>Generating...</span>';
+
+  emptyView.classList.add('hidden');
+  loadingView.classList.add('active');
+
+  const steps = ['ls-1', 'ls-2', 'ls-3', 'ls-4'];
+  for (let i = 0; i < steps.length; i++) {
+    await sleep(350);
+    if (i > 0) document.getElementById(steps[i-1]).classList.add('done');
+    document.getElementById(steps[i]).classList.add('active');
+  }
+
+  await sleep(250);
+  loadingView.classList.remove('active');
+  steps.forEach(s => document.getElementById(s).classList.remove('active', 'done'));
+
+  initAce(lang);
+  aceEditorEl.classList.add('visible');
+
+  const initialCode = aceEditor ? aceEditor.getValue() : cfg.starter;
+  // Create single Supabase session for this workspace (non-blocking)
+  createDBSession(question, initialCode).catch(err => console.warn('[Supabase] Session create background catch:', err));
+
+  ['run-btn', 'eval-btn', 'publish-btn', 'post-btn'].forEach(id => {
+    document.getElementById(id).disabled = false;
+  });
+
+  document.getElementById('ai-input').disabled = false;
+  document.getElementById('ai-send').disabled = false;
+
+  generateBtn.disabled = false;
+  generateBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg><span>Generate Workspace →</span>';
+
+  // Start workspace timer
+  startWorkspaceTimer();
+
+  resetHints();
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+/* ─────────────────────────────────────────────
+   RUN CODE (ONLINECOMPILER.IO API)
+───────────────────────────────────────────── */
+const runBtn = document.getElementById('run-btn');
+const consoleStatus = document.getElementById('console-status');
+const consoleBody = document.getElementById('console-body');
+const consoleExecTime = document.getElementById('console-exec-time');
+
+if (runBtn) {
+  runBtn.addEventListener('click', async () => {
+    if (!editorReady || !aceEditor) return;
+    const code = aceEditor.getValue();
+    const lang = qLang.value;
+
+    runBtn.disabled = true;
+    runBtn.innerHTML = '<span>Running...</span>';
+
+    consoleStatus.className = 'console-status-badge running';
+    consoleStatus.textContent = 'Executing';
+    consoleBody.innerHTML = '<div style="color:#38BDF8;">Calling OnlineCompiler.io API...</div>';
+
+    try {
+      const response = await fetch('/api/code/run', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ language: lang, code })
+      });
+
+      const res = await response.json();
+      renderExecutionConsole(res);
+
+      if (res.status === 'compile_error' || res.status === 'runtime_error' || res.status === 'timeout' || (res.exitCode !== 0 && res.exitCode != null)) {
+        errorCount++;
+        updateUnlockButtonState();
+        updateDBSession({ error_count: errorCount });
+      }
+
+      showToast('✓ Execution complete');
+
+    } catch (err) {
+      consoleStatus.className = 'console-status-badge error';
+      consoleStatus.textContent = 'Error';
+      consoleBody.innerHTML = `<div class="console-stderr">Execution Error: ${err.message}</div>`;
+      errorCount++;
+      updateUnlockButtonState();
+      updateDBSession({ error_count: errorCount });
+    } finally {
+      runBtn.disabled = false;
+      runBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><span>Run Code</span>';
+    }
+  });
+}
+
+function renderExecutionConsole(res) {
+  let html = '';
+
+  // Determine status first
+  let badgeCls = 'success';
+  let badgeTxt = 'Success (Exit 0)';
+
+  if (res.status === 'compile_error') { badgeCls = 'error'; badgeTxt = 'Compile Error'; }
+  else if (res.status === 'runtime_error') { badgeCls = 'error'; badgeTxt = 'Runtime Error'; }
+  else if (res.status === 'timeout') { badgeCls = 'timeout'; badgeTxt = 'Time Limit Exceeded'; }
+  else if (res.exitCode !== 0 && res.exitCode != null) { badgeCls = 'error'; badgeTxt = `Abnormal Exit (${res.exitCode})`; }
+
+  // Compilation / build stderr — show FIRST prominently
+  if (res.error && res.error.trim()) {
+    const isCompile = res.status === 'compile_error' || res.error.toLowerCase().includes('error:') || res.error.toLowerCase().includes('compilation');
+    html += `<div class="console-section-label" style="color:${isCompile ? '#F87171' : '#FBBF24'};font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px;">${isCompile ? 'Compiler Output' : 'Standard Error'}</div>`;
+    html += `<div class="console-stderr" style="white-space:pre-wrap;">${escapeHtml(res.error.trim())}</div>`;
+  }
+
+  // Standard output
+  if (res.output && res.output.trim()) {
+    if (res.error) html += '<div style="height:8px;"></div>';
+    html += `<div class="console-section-label" style="color:#38BDF8;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px;">Program Output</div>`;
+    html += `<div class="console-stdout" style="white-space:pre-wrap;">${escapeHtml(res.output.trim())}</div>`;
+  }
+
+  // Timeout message
+  if (res.timedOut) {
+    html += `<div class="console-stderr">Process exceeded time limit and was terminated.</div>`;
+  }
+
+  // Nothing at all
+  if (!res.output?.trim() && !res.error?.trim() && !res.timedOut) {
+    html += `<div style="color:#94A3B8;font-style:italic;">(Program exited with no output)</div>`;
+  }
+
+  // Meta footer
+  html += `<div class="console-meta" style="margin-top:8px;padding-top:8px;border-top:1px solid #1E293B;">OnlineCompiler.io  •  Exit Code: ${res.exitCode ?? 0}  •  Time: ${res.executionTime ?? 0}s  •  Memory: ${res.memory ?? 0} KB</div>`;
+
+  consoleExecTime.textContent = res.executionTime ? `${res.executionTime}s` : '';
+  consoleStatus.className = `console-status-badge ${badgeCls}`;
+  consoleStatus.textContent = badgeTxt;
+  consoleBody.innerHTML = html;
+}
+
+/* ─────────────────────────────────────────────
+   EVALUATE AI & PROGRESSIVE HINT UNLOCK SYSTEM
+───────────────────────────────────────────── */
+const evalBtn = document.getElementById('eval-btn');
+let currentAnalysis = null;
+let currentHints = [];
+let revealedHintIndex = 0; // 0 = none, 1 = Hint 1, 2 = Hint 2, 3 = Hint 3
+let errorCount = 0; // Track errors made
+let isSurrendered = false;
+
+if (evalBtn) {
+  evalBtn.addEventListener('click', async () => {
+    if (!editorReady || !aceEditor) return;
+
+    evalBtn.disabled = true;
+    evalBtn.innerHTML = '<span>Evaluating...</span>';
+
+    const question = document.getElementById('q-textarea').value.trim();
+    const code = aceEditor.getValue();
+    const lang = qLang.value;
+
+    try {
+      const response = await fetch('/api/code/evaluate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          problem: question,
+          language: lang,
+          code: code,
+          previousHints: currentHints.slice(0, revealedHintIndex).map(h => h.hint)
+        })
+      });
+
+      const data = await response.json();
+      if (data.execution) renderExecutionConsole(data.execution);
+      
+      if (data.analysis) {
+        if (data.analysis.bugDetected) {
+          errorCount++;
+          updateDBSession({ error_count: errorCount });
+        }
+        handleGeminiAnalysis(data.analysis);
+      }
+
+      showToast('✨ AI Evaluation Complete');
+
+    } catch (err) {
+      showToast('⚠️ Evaluation error: ' + err.message);
+      errorCount++;
+      updateUnlockButtonState();
+      updateDBSession({ error_count: errorCount });
+    } finally {
+      evalBtn.disabled = false;
+      evalBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg><span>Evaluate AI</span>';
+    }
+  });
+}
+
+function handleGeminiAnalysis(analysis) {
+  currentAnalysis = analysis;
+  currentHints = analysis.hints || [];
+
+  document.getElementById('hp-waiting').classList.add('hidden');
+  document.getElementById('hints-scroll').classList.remove('hidden');
+
+  const surrenderBtn = document.getElementById('surrender-btn');
+  if (surrenderBtn) surrenderBtn.disabled = false;
+
+  renderHintsUI();
+}
+
+function renderHintsUI() {
+  const scroll = document.getElementById('hints-scroll');
+  scroll.innerHTML = '';
+
+  // ── If Gemini was unavailable, show honest message — no fake hints ──
+  if (currentAnalysis && !currentAnalysis.available) {
+    const unavailDiv = document.createElement('div');
+    unavailDiv.style.cssText = 'background:rgba(255,255,255,0.92);border:1px solid #FED7AA;border-radius:10px;padding:14px;font-size:13px;color:#92400E;line-height:1.5;';
+    unavailDiv.innerHTML = '<strong>AI Temporarily Unavailable</strong><br>The Gemini AI service is overloaded right now. Your code ran successfully via OnlineCompiler.io — please click Evaluate AI again in a moment to get AI-generated hints.';
+    scroll.appendChild(unavailDiv);
+    document.getElementById('hp-badge').textContent = 'Unavailable';
+    updateUnlockButtonState();
+    return;
+  }
+
+  const st = currentAnalysis?.status || 'idle';
+
+  // Status pill
+  if (currentAnalysis) {
+    const statusDiv = document.createElement('div');
+    statusDiv.className = `status-pill ${st}`;
+    statusDiv.textContent = `Status: ${st.toUpperCase().replace(/_/g, ' ')}`;
+    scroll.appendChild(statusDiv);
+  }
+
+  // ── Progressive Hint Cards ──
+  if (currentHints.length === 0 && currentAnalysis?.bugDetected) {
+    const noHintDiv = document.createElement('div');
+    noHintDiv.style.cssText = 'font-size:12.5px;color:rgba(255,255,255,0.8);font-style:italic;padding:10px;';
+    noHintDiv.textContent = 'AI evaluation completed but no hints were generated for this submission.';
+    scroll.appendChild(noHintDiv);
+  } else if (currentHints.length === 0 && st === 'correct') {
+    const correctDiv = document.createElement('div');
+    correctDiv.style.cssText = 'font-size:13px;color:#166534;background:#DCFCE7;padding:12px;border-radius:8px;border-left:3px solid #16A34A;';
+    correctDiv.innerHTML = '<strong>Great work!</strong> Your solution is correct. No hints needed.';
+    scroll.appendChild(correctDiv);
+  } else {
+    currentHints.forEach((h, idx) => {
+      const isUnlocked = idx < revealedHintIndex;
+      const card = document.createElement('div');
+      card.className = `hint-card ${isUnlocked ? 'unlocked' : 'locked'}`;
+      const levelCls = ['l1', 'l2', 'l3'][idx] || 'l3';
+      card.innerHTML = `
+        <div class="hint-card-head">
+          <span class="hc-badge ${levelCls}">Hint ${idx + 1}</span>
+          ${isUnlocked ? '' : '<span style="font-size:11.5px;color:rgba(255,255,255,0.7);font-weight:600;">🔒 Locked</span>'}
+        </div>
+        <div class="hc-body">${isUnlocked ? escapeHtml(h.hint) : 'Locked — Ask for hint or make errors to unlock...'}</div>
+      `;
+      scroll.appendChild(card);
+    });
+  }
+
+  // ── SURRENDER SECTION: Displayed BELOW all hints ONLY if user surrenders ──
+  if (isSurrendered && currentAnalysis) {
+    const surrenderBox = document.createElement('div');
+    surrenderBox.style.cssText = 'margin-top:10px;background:rgba(255,255,255,0.95);border:2px solid #EF4444;border-radius:12px;padding:14px;color:#0F172A;display:flex;flex-direction:column;gap:10px;box-shadow:0 4px 14px rgba(239,68,68,0.25);';
+    
+    let boxHtml = `<div style="font-size:13px;font-weight:700;color:#DC2626;display:flex;align-items:center;gap:6px;">🚩 Surrendered Solution & Analysis</div>`;
+    
+    if (currentAnalysis.understanding) {
+      boxHtml += `<div style="font-size:12.5px;color:#334155;background:#F8FAFC;padding:10px;border-radius:8px;border-left:3px solid #3B82F6;line-height:1.5;"><strong>Problem Analysis:</strong><br>${escapeHtml(currentAnalysis.understanding)}</div>`;
+    }
+    
+    if (currentAnalysis.failedReasoning) {
+      boxHtml += `<div style="font-size:12.5px;color:#991B1B;background:#FEF2F2;padding:10px;border-radius:8px;border-left:3px solid #EF4444;line-height:1.5;"><strong>Why Code Fails:</strong><br>${escapeHtml(currentAnalysis.failedReasoning)}</div>`;
+    }
+    
+    surrenderBox.innerHTML = boxHtml;
+    scroll.appendChild(surrenderBox);
+  }
+
+  updateUnlockButtonState();
+}
+
+function updateUnlockButtonState() {
+  const unlockBtn = document.getElementById('unlock-btn');
+  const unlockText = document.getElementById('unlock-btn-text');
+  if (!unlockBtn || !unlockText) return;
+
+  document.getElementById('hp-badge').textContent = `L${revealedHintIndex} / ${currentHints.length || 3}`;
+  for (let i = 1; i <= 3; i++) {
+    const pip = document.getElementById('pip-' + i);
+    if (pip) pip.classList.toggle('active', i <= revealedHintIndex);
+  }
+
+  if (currentHints.length === 0) {
+    unlockText.textContent = 'Generate workspace & Evaluate AI';
+    unlockBtn.disabled = true;
+    return;
+  }
+
+  if (revealedHintIndex >= currentHints.length) {
+    unlockText.textContent = 'All hints revealed';
+    unlockBtn.disabled = true;
+    return;
+  }
+
+  // Hint 1: Unlocks on first ask
+  if (revealedHintIndex === 0) {
+    unlockText.textContent = 'Get Hint 1';
+    unlockBtn.disabled = false;
+    return;
+  }
+
+  // Hint 2: Requires 5 errors total
+  if (revealedHintIndex === 1) {
+    if (errorCount >= 5) {
+      unlockText.textContent = 'Get Hint 2';
+      unlockBtn.disabled = false;
+    } else {
+      unlockText.textContent = `Locked (${errorCount}/5 errors for Hint 2)`;
+      unlockBtn.disabled = true;
+    }
+    return;
+  }
+
+  // Hint 3: Requires 10 errors total
+  if (revealedHintIndex === 2) {
+    if (errorCount >= 10) {
+      unlockText.textContent = 'Get Hint 3';
+      unlockBtn.disabled = false;
+    } else {
+      unlockText.textContent = `Locked (${errorCount}/10 errors for Hint 3)`;
+      unlockBtn.disabled = true;
+    }
+    return;
+  }
+}
+
+// Unlock hint button event listener
+const unlockBtn = document.getElementById('unlock-btn');
+if (unlockBtn) {
+  unlockBtn.addEventListener('click', () => {
+    if (currentHints.length === 0) return;
+
+    if (revealedHintIndex === 0) {
+      revealedHintIndex = 1;
+      renderHintsUI();
+      showToast('💡 Hint 1 Unlocked!');
+      if (currentHints[0]) updateDBSession({ hint1: currentHints[0].hint });
+    } else if (revealedHintIndex === 1 && errorCount >= 5) {
+      revealedHintIndex = 2;
+      renderHintsUI();
+      showToast('💡 Hint 2 Unlocked!');
+      if (currentHints[1]) updateDBSession({ hint2: currentHints[1].hint });
+    } else if (revealedHintIndex === 2 && errorCount >= 10) {
+      revealedHintIndex = 3;
+      renderHintsUI();
+      showToast('💡 Hint 3 Unlocked!');
+      if (currentHints[2]) updateDBSession({ hint3: currentHints[2].hint });
+    }
+  });
+}
+
+// Surrender button event listener
+const surrenderBtn = document.getElementById('surrender-btn');
+if (surrenderBtn) {
+  surrenderBtn.addEventListener('click', () => {
+    if (isSurrendered) return;
+    isSurrendered = true;
+    revealedHintIndex = currentHints.length > 0 ? currentHints.length : 3;
+    renderHintsUI();
+    showToast('🚩 Surrendered! Full problem analysis revealed below hints.');
+
+    const hintPayload = { surrendered: true };
+    if (currentHints[0]) hintPayload.hint1 = currentHints[0].hint;
+    if (currentHints[1]) hintPayload.hint2 = currentHints[1].hint;
+    if (currentHints[2]) hintPayload.hint3 = currentHints[2].hint;
+    updateDBSession(hintPayload);
+  });
+}
+
+
+function resetHints() {
+  currentAnalysis = null;
+  currentHints = [];
+  revealedHintIndex = 0;
+  errorCount = 0;
+  isSurrendered = false;
+
+  document.getElementById('hp-waiting').classList.remove('hidden');
+  document.getElementById('hints-scroll').classList.add('hidden');
+  document.getElementById('hp-badge').textContent = 'L0 / 3';
+  for (let i = 1; i <= 3; i++) document.getElementById('pip-' + i).classList.remove('active');
+  
+  const unlockBtn = document.getElementById('unlock-btn');
+  if (unlockBtn) {
+    document.getElementById('unlock-btn-text').textContent = 'Generate workspace & Evaluate AI';
+    unlockBtn.disabled = true;
+  }
+
+  const surrenderBtn = document.getElementById('surrender-btn');
+  if (surrenderBtn) surrenderBtn.disabled = true;
+}
+
+/* ─────────────────────────────────────────────
+   UTILITY & TOAST
+───────────────────────────────────────────── */
+function escapeHtml(str) {
+  return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function showToast(msg) {
+  const existing = document.getElementById('editor-toast');
+  if (existing) existing.remove();
+  const toast = document.createElement('div');
+  toast.id = 'editor-toast';
+  toast.className = 'ed-toast';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3000);
+}
+</script>
+</body>
+</html>
+

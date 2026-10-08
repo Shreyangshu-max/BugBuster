@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BugBuster — Challenges</title>
+  <meta name="description" content="BugBuster Challenges — 150 DSA problems across Java, C++ and Python." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="challenges.css" />
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<header class="nav" id="nav" role="banner">
+  <div class="nav__inner">
+    <a class="nav__wordmark" href="/" aria-label="BugBuster home">Bug<span class="wm-accent">Buster</span></a>
+    <nav class="nav__links" aria-label="App features">
+      <a href="/" class="nav__link">Home</a>
+      <a href="/editor" class="nav__link">Editor</a>
+      <a href="/community" class="nav__link">Community</a>
+      <a href="/challenges" class="nav__link active" aria-current="page">Challenges</a>
+      <a href="/leaderboard" class="nav__link">Leaderboard</a>
+      <a href="/recall" class="nav__link">Recall</a>
+      <a href="/dashboard" class="nav__link">Dashboard</a>
+    </nav>
+    <div class="nav__right">
+      <a href="/editor" class="btn-primary">Try Editor</a>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="ch-page">
+  <div class="ch-inner">
+
+    <!-- HERO SECTION -->
+    <section class="ch-hero">
+      <div class="ch-hero__pill">
+        ⚡ BugBuster Challenge Arena • <span id="heroLangLabel">Java 50 Problems</span>
+      </div>
+      <h1 class="ch-hero__h1">
+        Master DSA with <br /><span class="grad">Interactive Challenges</span>
+      </h1>
+      <p class="ch-hero__sub">
+        Solve 150 curated data structure & algorithm problems. Level up your coding skills, earn badges, and climb the global leaderboards.
+      </p>
+
+      <div class="ch-stats">
+        <div class="ch-stat">
+          <span class="ch-stat__num">150</span>
+          <span class="ch-stat__label">Total Problems</span>
+        </div>
+        <div class="ch-stat">
+          <span class="ch-stat__num">5</span>
+          <span class="ch-stat__label">Difficulty Levels</span>
+        </div>
+        <div class="ch-stat">
+          <span class="ch-stat__num">3</span>
+          <span class="ch-stat__label">Languages</span>
+        </div>
+        <div class="ch-stat">
+          <span class="ch-stat__num">2,450</span>
+          <span class="ch-stat__label">Max XP</span>
+        </div>
+      </div>
+
+      <!-- LANGUAGE SWITCHER -->
+      <div class="lang-switcher-wrap">
+        <div class="lang-switcher" role="tablist">
+          <button class="ch-lang-btn active" data-lang="java" role="tab" aria-selected="true">
+            ☕ Java <span class="lang-count">50</span>
+          </button>
+          <button class="ch-lang-btn" data-lang="cpp" role="tab" aria-selected="false">
+            ⚡ C++ <span class="lang-count">50</span>
+          </button>
+          <button class="ch-lang-btn" data-lang="python" role="tab" aria-selected="false">
+            🐍 Python <span class="lang-count">50</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROGRESS CARD -->
+    <section class="ch-progress-section">
+      <div class="ch-progress-card">
+        <div class="ch-ring-wrap">
+          <svg class="ch-ring-svg" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="10" />
+            <circle id="ringCircle" cx="60" cy="60" r="50" fill="none" stroke="url(#ringGrad)" stroke-width="10" 
+                    stroke-dasharray="314.15" stroke-dashoffset="220" stroke-linecap="round" transform="rotate(-90 60 60)" />
+            <defs>
+              <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#7DF9FF" />
+                <stop offset="50%" stop-color="#7B2CF5" />
+                <stop offset="100%" stop-color="#E41D81" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="ch-ring-label">
+            <span class="ch-ring-label__num" id="ringSolvedCount">15</span>
+            <span class="ch-ring-label__total">/ 50 Solved</span>
+          </div>
+        </div>
+
+        <div class="ch-prog-text">
+          <h3 id="progTitle">Java Mastery Progress</h3>
+          <p id="progSub">You've completed 30% of the Java challenges. Keep solving to unlock Level 4!</p>
+          <div class="ch-mini-stats">
+            <div class="ch-ms">
+              <span class="ch-ms__val" id="msSolved">15</span>
+              <span class="ch-ms__lbl">Solved</span>
+            </div>
+            <div class="ch-ms">
+              <span class="ch-ms__val" id="msXP">420</span>
+              <span class="ch-ms__lbl">XP Earned</span>
+            </div>
+            <div class="ch-ms">
+              <span class="ch-ms__val" id="msStreak">4 🔥</span>
+              <span class="ch-ms__lbl">Day Streak</span>
+            </div>
+            <div class="ch-ms">
+              <span class="ch-ms__val" id="msRank">#42</span>
+              <span class="ch-ms__lbl">Global Rank</span>
+            </div>
+          </div>
+          <div class="ch-bar-track">
+            <div class="ch-bar-fill" id="overallBarFill" style="width: 30%;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEVEL FILTERS -->
+    <div class="ch-filters">
+      <span class="ch-filter-label">Filter Level:</span>
+      <button class="ch-lf-btn active" data-level="all">All Levels</button>
+      <button class="ch-lf-btn" data-level="1">L1: Easy</button>
+      <button class="ch-lf-btn" data-level="2">L2: Medium</button>
+      <button class="ch-lf-btn" data-level="3">L3: Hard</button>
+      <button class="ch-lf-btn" data-level="4">L4: Advanced</button>
+      <button class="ch-lf-btn" data-level="5">L5: Expert / Boss</button>
+    </div>
+
+    <!-- MAIN CONTENT GRID -->
+    <main class="ch-content" id="challengesContainer">
+      <!-- Container populated dynamically by JS for selected language & filters -->
+    </main>
+
+    <!-- LIVE ACTIVITY -->
+    <section class="ch-activity">
+      <div class="ch-act-head">
+        <h2>Live Community Activity</h2>
+        <div class="live-dot"></div>
+        <span class="live-lbl">REAL-TIME</span>
+      </div>
+      <div class="ch-act-list" id="activityList">
+        <div class="ch-act-row">
+          <div class="ch-act-av" style="background:linear-gradient(135deg,#7B2CF5,#22D3EE);">AK</div>
+          <div class="ch-act-info">
+            <div class="ch-act-name">Aarav K. solved <strong style="color:#7DF9FF;">Two Sum (Hash Map)</strong></div>
+            <div class="ch-act-detail">Passed 14/14 test cases in 12ms</div>
+          </div>
+          <span class="ch-act-lang java">Java</span>
+          <span class="ch-act-xp">+20 XP</span>
+          <span class="ch-act-time">2 mins ago</span>
+        </div>
+
+        <div class="ch-act-row">
+          <div class="ch-act-av" style="background:linear-gradient(135deg,#E41D81,#FBBF24);">PS</div>
+          <div class="ch-act-info">
+            <div class="ch-act-name">Priya S. solved <strong style="color:#7DF9FF;">Merge K Sorted Lists</strong></div>
+            <div class="ch-act-detail">Optimized using PriorityQueue in 4ms</div>
+          </div>
+          <span class="ch-act-lang cpp">C++</span>
+          <span class="ch-act-xp">+50 XP</span>
+          <span class="ch-act-time">8 mins ago</span>
+        </div>
+
+        <div class="ch-act-row">
+          <div class="ch-act-av" style="background:linear-gradient(135deg,#4ADE80,#3B82F6);">RM</div>
+          <div class="ch-act-info">
+            <div class="ch-act-name">Rohan M. unlocked <strong style="color:#7DF9FF;">Level 4 Dynamic Programming</strong></div>
+            <div class="ch-act-detail">Completed all Level 3 Graph challenges</div>
+          </div>
+          <span class="ch-act-lang py">Python</span>
+          <span class="ch-act-xp">+100 XP</span>
+          <span class="ch-act-time">15 mins ago</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="ch-footer">
+      <div class="ch-footer__inner">
+        <div class="ch-foot-copy">© 2026 BugBuster. Interactive DSA Learning Platform.</div>
+        <div class="ch-foot-links">
+          <a href="/" class="ch-foot-link">Home</a>
+          <a href="/editor" class="ch-foot-link">Workspace</a>
+          <a href="/leaderboard" class="ch-foot-link">Rankings</a>
+          <a href="/community" class="ch-foot-link">Community</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<!-- DETAIL SIDE PANEL OVERLAY & DRAWER -->
+<div class="cdp-overlay" id="detailOverlay"></div>
+<div class="cdp-panel" id="detailPanel">
+  <div class="cdp-panel-inner">
+    <div class="cdp-top">
+      <div>
+        <span class="cdp-badge" id="cdpLevelBadge">LEVEL 1 • EASY</span>
+        <h2 class="cdp-title" id="cdpTitle">Two Sum</h2>
+        <div class="cdp-meta" id="cdpMeta">10 Tests • 20 XP • Time Limit: 1.0s</div>
+      </div>
+      <button class="cdp-close" id="cdpCloseBtn" aria-label="Close panel">✕</button>
+    </div>
+
+    <div class="cdp-divider"></div>
+
+    <div class="cdp-slabel">Problem Statement</div>
+    <p class="cdp-desc" id="cdpDesc">
+      Given an array of integers <code>nums</code> and an integer <code>target</code>, return indices of the two numbers such that they add up to target.
+    </p>
+
+    <div class="cdp-slabel">Example Test Case</div>
+    <div class="cdp-ex">
+      <pre id="cdpExample">Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].</pre>
+    </div>
+
+    <div class="cdp-slabel">Tags & Topics</div>
+    <div class="cdp-chips" id="cdpChips">
+      <span class="cdp-chip">Array</span>
+      <span class="cdp-chip">Hash Table</span>
+      <span class="cdp-chip">Two Pointers</span>
+    </div>
+
+    <div class="cdp-actions">
+      <a href="#" class="cdp-solve" id="cdpSolveBtn">
+        🚀 Solve in Workspace
+      </a>
+      <button class="cdp-hint" id="cdpHintBtn">💡 Hint</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="ch-toast" id="chToast">Notification message here</div>
+
+<script>
+  // Dynamic Data & Problem Set for Java, C++, Python (150 Total Problems across 5 Levels)
+  const LANGUAGES = {
+    java: {
+      name: "Java",
+      solvedCount: 15,
+      totalCount: 50,
+      xp: 420,
+      streak: 4,
+      rank: "#42",
+      levels: [
+        {
+          level: 1, name: "Foundations & Arrays", sub: "10 Problems • Easy", badgeClass: "ch-lvl-1",
+          problems: [
+            { id: 1, title: "Two Sum", status: "solved", xp: 20, desc: "Find two numbers in array that add up to target.", in: "nums = [2,7,11,15], target = 9", out: "[0, 1]", tags: ["Array", "HashMap"] },
+            { id: 2, status: "solved", title: "Reverse Array In-Place", xp: 20, desc: "Reverse integer array without extra memory.", in: "arr = [1, 2, 3, 4]", out: "[4, 3, 2, 1]", tags: ["Array", "Two Pointers"] },
+            { id: 3, status: "solved", title: "Find Maximum Subarray", xp: 20, desc: "Kadane's algorithm for contiguous max sum.", in: "nums = [-2,1,-3,4,-1,2,1,-5,4]", out: "6", tags: ["Array", "Dynamic Programming"] },
+            { id: 4, status: "solved", title: "Contains Duplicate", xp: 20, desc: "Check if any value appears at least twice.", in: "nums = [1,2,3,1]", out: "true", tags: ["Set", "Array"] },
+            { id: 5, status: "solved", title: "Move Zeroes", xp: 20, desc: "Move all 0's to end while maintaining relative order.", in: "nums = [0,1,0,3,12]", out: "[1,3,12,0,0]", tags: ["Two Pointers"] },
+            { id: 6, status: "solved", title: "Best Time to Buy & Sell Stock", xp: 20, desc: "Maximize profit by choosing single buy/sell day.", in: "prices = [7,1,5,3,6,4]", out: "5", tags: ["Array", "Greedy"] },
+            { id: 7, status: "active", title: "Rotate Array", xp: 25, desc: "Rotate array to right by k steps.", in: "nums = [1,2,3,4,5,6,7], k = 3", out: "[5,6,7,1,2,3,4]", tags: ["Array"] },
+            { id: 8, status: "open", title: "Intersection of Two Arrays", xp: 25, desc: "Compute intersection of two integer arrays.", in: "nums1 = [1,2,2,1], nums2 = [2,2]", out: "[2]", tags: ["HashSet"] },
+            { id: 9, status: "open", title: "Valid Anagram", xp: 25, desc: "Determine if s and t are anagrams.", in: "s = 'anagram', t = 'nagaram'", out: "true", tags: ["String", "HashMap"] },
+            { id: 10, status: "open", title: "Single Number", xp: 25, desc: "Find element that appears once using Bit XOR.", in: "nums = [4,1,2,1,2]", out: "4", tags: ["Bit Manipulation"] }
+          ]
+        },
+        {
+          level: 2, name: "Strings & Linked Lists", sub: "10 Problems • Medium", badgeClass: "ch-lvl-2",
+          problems: [
+            { id: 11, status: "solved", title: "Reverse Linked List", xp: 30, desc: "Reverse a singly linked list iteratively and recursively.", in: "head = [1,2,3,4,5]", out: "[5,4,3,2,1]", tags: ["LinkedList"] },
+            { id: 12, status: "solved", title: "Detect Cycle in Linked List", xp: 30, desc: "Floyd's Tortoise and Hare algorithm.", in: "head = [3,2,0,-4], pos = 1", out: "true", tags: ["Two Pointers", "LinkedList"] },
+            { id: 13, status: "solved", title: "Merge Two Sorted Lists", xp: 30, desc: "Merge two sorted linked lists into one sorted list.", in: "l1 = [1,2,4], l2 = [1,3,4]", out: "[1,1,2,3,4,4]", tags: ["LinkedList"] },
+            { id: 14, status: "solved", title: "Longest Substring Without Repeating", xp: 35, desc: "Sliding window approach to find max length substring.", in: "s = 'abcabcbb'", out: "3", tags: ["Sliding Window", "String"] },
+            { id: 15, status: "solved", title: "Valid Palindrome", xp: 30, desc: "Ignore non-alphanumeric chars and case.", in: "s = 'A man, a plan, a canal: Panama'", out: "true", tags: ["Two Pointers", "String"] },
+            { id: 16, status: "solved", title: "Remove Nth Node From End", xp: 35, desc: "One-pass fast/slow pointer approach.", in: "head = [1,2,3,4,5], n = 2", out: "[1,2,3,5]", tags: ["LinkedList"] },
+            { id: 17, status: "open", title: "Group Anagrams", xp: 35, desc: "Group strings that are anagrams of each other.", in: "strs = ['eat','tea','tan','ate','nat','bat']", out: "[['bat'],['nat','tan'],['ate','eat','tea']]", tags: ["HashMap"] },
+            { id: 18, status: "open", title: "Longest Palindromic Substring", xp: 40, desc: "Expand around center strategy.", in: "s = 'babad'", out: "'bab'", tags: ["String", "DP"] },
+            { id: 19, status: "open", title: "Add Two Numbers", xp: 40, desc: "Add numbers stored as reversed linked lists.", in: "l1 = [2,4,3], l2 = [5,6,4]", out: "[7,0,8]", tags: ["LinkedList", "Math"] },
+            { id: 20, status: "open", title: "Reorder List", xp: 40, desc: "Reorder L0→L1→…→Ln-1→Ln into L0→Ln→L1→Ln-1.", in: "head = [1,2,3,4]", out: "[1,4,2,3]", tags: ["LinkedList"] }
+          ]
+        },
+        {
+          level: 3, name: "Trees, Binary Search & Graphs", sub: "10 Problems • Hard", badgeClass: "ch-lvl-3",
+          problems: [
+            { id: 21, status: "solved", title: "Invert Binary Tree", xp: 45, desc: "Invert left and right subtrees recursively.", in: "root = [4,2,7,1,3,6,9]", out: "[4,7,2,9,6,3,1]", tags: ["Tree", "DFS"] },
+            { id: 22, status: "solved", title: "Maximum Depth of Binary Tree", xp: 45, desc: "Find height of tree from root to leaf.", in: "root = [3,9,20,null,null,15,7]", out: "3", tags: ["Tree", "BFS"] },
+            { id: 23, status: "solved", title: "Binary Tree Level Order Traversal", xp: 50, desc: "BFS traversal using Queue.", in: "root = [3,9,20,null,null,15,7]", out: "[[3],[9,20],[15,7]]", tags: ["Tree", "BFS"] },
+            { id: 24, status: "open", title: "Validate Binary Search Tree", xp: 50, desc: "Check if all left < node < right nodes hold.", in: "root = [2,1,3]", out: "true", tags: ["Tree", "BST"] },
+            { id: 25, status: "open", title: "Kth Smallest Element in BST", xp: 50, desc: "In-order traversal of BST.", in: "root = [3,1,4,null,2], k = 1", out: "1", tags: ["BST", "DFS"] },
+            { id: 26, status: "open", title: "Lowest Common Ancestor", xp: 55, desc: "Find lowest node containing p and q in BST.", in: "root = [6,2,8], p = 2, q = 8", out: "6", tags: ["Tree"] },
+            { id: 27, status: "open", title: "Number of Islands", xp: 55, desc: "Count connected components in 2D grid using BFS/DFS.", in: "grid = [['1','1','0'],['1','1','0'],['0','0','1']]", out: "2", tags: ["Graph", "BFS", "DFS"] },
+            { id: 28, status: "open", title: "Clone Graph", xp: 55, desc: "Deep copy an undirected connected graph.", in: "adjList = [[2,4],[1,3],[2,4],[1,3]]", out: "clonedGraph", tags: ["Graph", "BFS"] },
+            { id: 29, status: "open", title: "Course Schedule", xp: 60, desc: "Detect cycle in directed graph using Kahn's algorithm.", in: "numCourses = 2, prerequisites = [[1,0]]", out: "true", tags: ["Topological Sort"] },
+            { id: 30, status: "open", title: "Search in Rotated Sorted Array", xp: 50, desc: "Binary search in O(log n) time.", in: "nums = [4,5,6,7,0,1,2], target = 0", out: "4", tags: ["Binary Search"] }
+          ]
+        },
+        {
+          level: 4, name: "Dynamic Programming & Greedy", sub: "10 Problems • Advanced", badgeClass: "ch-lvl-4",
+          problems: [
+            { id: 31, status: "open", title: "Climbing Stairs", xp: 50, desc: "Fibonacci variant for combinations to top.", in: "n = 3", out: "3", tags: ["DP"] },
+            { id: 32, status: "open", title: "Coin Change", xp: 60, desc: "Min coins to form target amount.", in: "coins = [1,2,5], amount = 11", out: "3 (5+5+1)", tags: ["DP"] },
+            { id: 33, status: "open", title: "Longest Increasing Subsequence", xp: 65, desc: "Find length of longest strictly increasing subsequence.", in: "nums = [10,9,2,5,3,7,101,18]", out: "4", tags: ["DP", "Binary Search"] },
+            { id: 34, status: "open", title: "Word Break Problem", xp: 65, desc: "Check if string s can be segmented into words.", in: "s = 'leetcode', dict = ['leet','code']", out: "true", tags: ["DP", "Trie"] },
+            { id: 35, status: "open", title: "House Robber", xp: 55, desc: "Maximize profit without robbing adjacent houses.", in: "nums = [2,7,9,3,1]", out: "12", tags: ["DP"] },
+            { id: 36, status: "open", title: "Partition Equal Subset Sum", xp: 70, desc: "0/1 Knapsack variation for subset sum equal to total/2.", in: "nums = [1,5,11,5]", out: "true", tags: ["DP"] },
+            { id: 37, status: "open", title: "Jump Game II", xp: 60, desc: "Minimum jumps to reach last index.", in: "nums = [2,3,1,1,4]", out: "2", tags: ["Greedy"] },
+            { id: 38, status: "open", title: "Task Scheduler", xp: 65, desc: "CPU idle interval minimization.", in: "tasks = ['A','A','A','B','B','B'], n = 2", out: "8", tags: ["Greedy", "Heap"] },
+            { id: 39, status: "open", title: "Decode Ways", xp: 60, desc: "Count valid letter decodings for numeric string.", in: "s = '226'", out: "3 ('BZ', 'VF', 'BBF')", tags: ["DP"] },
+            { id: 40, status: "open", title: "Unique Paths", xp: 55, desc: "Robot navigation from top-left to bottom-right of grid.", in: "m = 3, n = 7", out: "28", tags: ["DP"] }
+          ]
+        },
+        {
+          level: 5, name: "Advanced Algorithms & Boss Stage", sub: "10 Problems • Expert / Boss", badgeClass: "ch-lvl-5",
+          problems: [
+            { id: 41, status: "locked", title: "Median of Two Sorted Arrays", xp: 100, desc: "O(log(min(m,n))) binary search split.", in: "nums1 = [1,3], nums2 = [2]", out: "2.0", tags: ["Binary Search", "Hard"] },
+            { id: 42, status: "locked", title: "Merge K Sorted Lists", xp: 100, desc: "Min-Heap priority queue optimization.", in: "lists = [[1,4,5],[1,3,4],[2,6]]", out: "[1,1,2,3,4,4,5,6]", tags: ["Heap", "Divide & Conquer"] },
+            { id: 43, status: "locked", title: "Trapping Rain Water", xp: 100, desc: "Two pointers / Monotonic stack approach.", in: "height = [0,1,0,2,1,0,1,3,2,1,2,1]", out: "6", tags: ["Two Pointers", "Stack"] },
+            { id: 44, status: "locked", title: "Word Search II (Trie + Backtracking)", xp: 110, desc: "Search words from grid using Trie data structure.", in: "board = [['o','a','a','n'],...], words = ['oath','pea']", out: "['oath']", tags: ["Trie", "DFS"] },
+            { id: 45, status: "locked", title: "Alien Dictionary", xp: 110, desc: "Topological sort of alien alphabet from sorted dictionary.", in: "words = ['wrt','wrf','er','ett','rftt']", out: "'wertf'", tags: ["Graph", "Topological Sort"] },
+            { id: 46, status: "locked", title: "Serialize and Deserialize Binary Tree", xp: 100, desc: "Design algorithm to encode/decode tree to string.", in: "root = [1,2,3,null,null,4,5]", out: "Tree restored", tags: ["Design", "BFS"] },
+            { id: 47, status: "locked", title: "LRU Cache Implementation", xp: 100, desc: "Design data structure with O(1) get & put.", in: "LRUCache cache = new LRUCache(2);", out: "Capacity maintained", tags: ["Doubly LinkedList", "HashMap"] },
+            { id: 48, status: "locked", title: "N-Queens Puzzle", xp: 120, desc: "Place N queens on NxN chessboard with no attacking pairs.", in: "n = 4", out: "2 solutions", tags: ["Backtracking"] },
+            { id: 49, status: "locked", title: "Regular Expression Matching", xp: 120, desc: "Implement regex matching '.' and '*'.", in: "s = 'aa', p = 'a*'", out: "true", tags: ["DP", "Hard"] },
+            { id: 50, status: "boss", title: "👑 BugBuster Grand Boss Challenge", xp: 200, desc: "Ultimate Hard Problem: Distributed Log Stream Analyzer & Memory Profiler.", in: "stream = [Logs 1..1000000]", out: "Zero Memory Leak", tags: ["Boss Challenge", "System Design"] }
+          ]
+        }
+      ]
+    },
+    cpp: {
+      name: "C++",
+      solvedCount: 12,
+      totalCount: 50,
+      xp: 380,
+      streak: 3,
+      rank: "#58",
+      levels: []
+    },
+    python: {
+      name: "Python",
+      solvedCount: 18,
+      totalCount: 50,
+      xp: 510,
+      streak: 6,
+      rank: "#28",
+      levels: []
+    }
+  };
+
+  // Populate C++ and Python levels from Java schema
+  ['cpp', 'python'].forEach(langKey => {
+    LANGUAGES[langKey].levels = LANGUAGES.java.levels.map((lvl, lIdx) => ({
+      ...lvl,
+      problems: lvl.problems.map(p => ({
+        ...p,
+        title: p.title + (langKey === 'cpp' ? ' (C++ STL)' : ' (Py)'),
+        status: (p.id <= (langKey === 'python' ? 18 : 12)) ? 'solved' : (p.id <= 20 ? 'open' : (p.id === 21 ? 'active' : (p.id < 45 ? 'open' : (p.id === 50 ? 'boss' : 'locked'))))
+      }))
+    }));
+  });
+
+  let currentLang = 'java';
+  let currentLevelFilter = 'all';
+  let activeProblem = null;
+
+  // DOM Elements
+  const container = document.getElementById('challengesContainer');
+  const detailOverlay = document.getElementById('detailOverlay');
+  const detailPanel = document.getElementById('detailPanel');
+  const cdpCloseBtn = document.getElementById('cdpCloseBtn');
+  const ringCircle = document.getElementById('ringCircle');
+  const ringSolvedCount = document.getElementById('ringSolvedCount');
+  const overallBarFill = document.getElementById('overallBarFill');
+  const progTitle = document.getElementById('progTitle');
+  const progSub = document.getElementById('progSub');
+  const msSolved = document.getElementById('msSolved');
+  const msXP = document.getElementById('msXP');
+  const msStreak = document.getElementById('msStreak');
+  const msRank = document.getElementById('msRank');
+  const heroLangLabel = document.getElementById('heroLangLabel');
+  const chToast = document.getElementById('chToast');
+
+  // Render Challenges Grid
+  function renderGrid() {
+    const langData = LANGUAGES[currentLang];
+    container.innerHTML = '';
+
+    // Filter levels
+    const levelsToDisplay = currentLevelFilter === 'all'
+      ? langData.levels
+      : langData.levels.filter(l => l.level === parseInt(currentLevelFilter));
+
+    if (levelsToDisplay.length === 0) {
+      container.innerHTML = `<div style="text-align:center; padding:60px 0; color:rgba(255,255,255,0.6);">No challenges found for this level filter.</div>`;
+      return;
+    }
+
+    levelsToDisplay.forEach(lvl => {
+      const sec = document.createElement('section');
+      sec.className = 'ch-level-sec';
+
+      // Count solved in level
+      const solvedInLvl = lvl.problems.filter(p => p.status === 'solved').length;
+      const pct = Math.round((solvedInLvl / lvl.problems.length) * 100);
+
+      sec.innerHTML = `
+        <div class="ch-level-head">
+          <span class="ch-lvl-badge ${lvl.badgeClass}">LEVEL ${lvl.level}</span>
+          <div>
+            <div class="ch-level-name">${lvl.name}</div>
+            <div class="ch-level-sub">${lvl.sub}</div>
+          </div>
+          <div class="ch-level-spacer"></div>
+          <div style="text-align:right;">
+            <div class="ch-level-prog-text">${solvedInLvl}/${lvl.problems.length} Solved</div>
+            <div class="ch-level-bar-wrap" style="margin-top:4px;">
+              <div class="ch-level-bar ${lvl.badgeClass}" style="width: ${pct}%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ch-tiles">
+          ${lvl.problems.map(p => {
+            let tileClass = 'ch-tile ';
+            let iconHtml = `<span class="tile-num">${p.id}</span>`;
+
+            if (p.status === 'solved') {
+              tileClass += 'ch-tile--solved';
+              iconHtml = `<svg class="tile-chk" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span style="font-size:10px; color:#7DF9FF; font-weight:700;">SOLVED</span>`;
+            } else if (p.status === 'active') {
+              tileClass += 'ch-tile--active';
+              iconHtml = `<span class="tile-num" style="font-size:20px;">⚡</span><span style="font-size:10px; color:#fff; font-weight:700;">NEXT</span>`;
+            } else if (p.status === 'boss') {
+              tileClass += 'ch-tile--boss';
+              iconHtml = `<span class="tile-num" style="font-size:22px;">👑</span><span style="font-size:10px; color:#F87171; font-weight:700;">BOSS</span>`;
+            } else if (p.status === 'locked') {
+              tileClass += 'ch-tile--locked';
+              iconHtml = `<svg class="tile-lck" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`;
+            } else {
+              tileClass += 'ch-tile--open';
+            }
+
+            return `
+              <div class="${tileClass}" data-pid="${p.id}" data-llevel="${lvl.level}">
+                ${iconHtml}
+                <div class="ttip">
+                  <div class="ttip__t">#${p.id} ${p.title}</div>
+                  <div class="ttip__m">+${p.xp} XP • ${p.tags.join(', ')}</div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+
+      container.appendChild(sec);
+    });
+
+    // Add event listeners to tiles
+    document.querySelectorAll('.ch-tile').forEach(tile => {
+      tile.addEventListener('click', () => {
+        const pid = parseInt(tile.dataset.pid);
+        const llevel = parseInt(tile.dataset.llevel);
+        openDetail(llevel, pid);
+      });
+    });
+
+    updateProgressCard();
+  }
+
+  // Update Progress Card & Ring
+  function updateProgressCard() {
+    const langData = LANGUAGES[currentLang];
+    const total = langData.totalCount;
+    const solved = langData.solvedCount;
+    const pct = Math.round((solved / total) * 100);
+
+    ringSolvedCount.innerText = solved;
+    heroLangLabel.innerText = `${langData.name} ${total} Problems`;
+    progTitle.innerText = `${langData.name} Mastery Progress`;
+    progSub.innerText = `You've completed ${pct}% of the ${langData.name} challenges. Keep solving to climb the leaderboard!`;
+
+    msSolved.innerText = solved;
+    msXP.innerText = langData.xp;
+    msStreak.innerText = `${langData.streak} 🔥`;
+    msRank.innerText = langData.rank;
+
+    // Animate stroke offset (circumference = 314.15)
+    const offset = 314.15 - (314.15 * pct / 100);
+    ringCircle.style.strokeDashoffset = offset;
+    overallBarFill.style.width = `${pct}%`;
+  }
+
+  // Open Problem Detail Panel
+  function openDetail(lvlNum, probId) {
+    const langData = LANGUAGES[currentLang];
+    const lvl = langData.levels.find(l => l.level === lvlNum);
+    if (!lvl) return;
+    const prob = lvl.problems.find(p => p.id === probId);
+    if (!prob) return;
+
+    if (prob.status === 'locked') {
+      showToast("🔒 Complete previous levels to unlock this challenge!");
+      return;
+    }
+
+    activeProblem = prob;
+
+    document.getElementById('cdpLevelBadge').innerText = `LEVEL ${lvlNum} • ${lvl.name.toUpperCase()}`;
+    document.getElementById('cdpTitle').innerText = `#${prob.id} ${prob.title}`;
+    document.getElementById('cdpMeta').innerText = `10 Tests • +${prob.xp} XP • Language: ${langData.name}`;
+    document.getElementById('cdpDesc').innerHTML = prob.desc;
+    document.getElementById('cdpExample').innerText = `Input: ${prob.in}\nOutput: ${prob.out}`;
+
+    const chipsWrap = document.getElementById('cdpChips');
+    chipsWrap.innerHTML = prob.tags.map(t => `<span class="cdp-chip">${t}</span>`).join('');
+
+    const fullQuestionText = `${prob.title}\n\nProblem Statement:\n${prob.desc}\n\nExample Test Case:\nInput: ${prob.in}\nOutput: ${prob.out}`;
+
+    const solveBtn = document.getElementById('cdpSolveBtn');
+    solveBtn.href = `/editor?lang=${currentLang}`;
+    solveBtn.onclick = (e) => {
+      e.preventDefault();
+      try {
+        sessionStorage.setItem('bugbuster_selected_question', fullQuestionText);
+        localStorage.setItem('bugbuster_selected_question', fullQuestionText);
+      } catch (err) {}
+      window.location.href = `/editor?lang=${currentLang}`;
+    };
+
+    detailOverlay.classList.add('open');
+    detailPanel.classList.add('open');
+  }
+
+  function closeDetail() {
+    detailOverlay.classList.remove('open');
+    detailPanel.classList.remove('open');
+  }
+
+  cdpCloseBtn.addEventListener('click', closeDetail);
+  detailOverlay.addEventListener('click', closeDetail);
+
+  // Make Live Activity items clickable as well
+  document.querySelectorAll('.ch-act-row').forEach(row => {
+    row.style.cursor = 'pointer';
+    row.addEventListener('click', () => {
+      const qText = row.querySelector('.ch-act-name strong')?.innerText || 'Two Sum';
+      const fullText = `${qText}\n\nProblem Statement:\nSolve ${qText} algorithm problem.\n\nExample Test Case:\nInput: Standard Input\nOutput: Expected Output`;
+      try {
+        sessionStorage.setItem('bugbuster_selected_question', fullText);
+        localStorage.setItem('bugbuster_selected_question', fullText);
+      } catch (err) {}
+      window.location.href = `/editor?lang=${currentLang}`;
+    });
+  });
+
+  document.getElementById('cdpHintBtn').addEventListener('click', () => {
+    if (activeProblem) {
+      showToast(`💡 Hint: Think about using ${activeProblem.tags[0] || 'an efficient data structure'} for O(N) lookup.`);
+    }
+  });
+
+  // Toast Function
+  function showToast(msg) {
+    chToast.innerText = msg;
+    chToast.classList.add('show');
+    setTimeout(() => chToast.classList.remove('show'), 3500);
+  }
+
+  // Language Switcher Events
+  document.querySelectorAll('.ch-lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.ch-lang-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      currentLang = btn.dataset.lang;
+      showToast(`Switched to ${LANGUAGES[currentLang].name} challenges!`);
+      renderGrid();
+    });
+  });
+
+  // Level Filter Events
+  document.querySelectorAll('.ch-lf-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.ch-lf-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentLevelFilter = btn.dataset.level;
+      renderGrid();
+    });
+  });
+
+  // Initial Render
+  renderGrid();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BugBuster — Spaced Recall</title>
+  <meta name="description" content="BugBuster Spaced Recall — master bug patterns through active recall and spaced repetition." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="pages.css" />
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<header class="nav" id="nav" role="banner">
+  <div class="nav__inner">
+    <a class="nav__wordmark" href="/" aria-label="BugBuster home">Bug<span class="wm-accent">Buster</span></a>
+    <nav class="nav__links" aria-label="App features">
+      <a href="/" class="nav__link">Home</a>
+      <a href="/editor" class="nav__link">Editor</a>
+      <a href="/community" class="nav__link">Community</a>
+      <a href="/challenges" class="nav__link">Challenges</a>
+      <a href="/leaderboard" class="nav__link">Leaderboard</a>
+      <a href="/recall" class="nav__link active" aria-current="page">Recall</a>
+      <a href="/dashboard" class="nav__link">Dashboard</a>
+    </nav>
+    <div class="nav__right">
+      <a href="/editor" class="btn-primary">Try Editor</a>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="nav__drawer" id="nav-drawer" aria-hidden="true">
+    <a href="/" class="nav__link">Home</a>
+    <a href="/editor" class="nav__link">Editor</a>
+    <a href="/community" class="nav__link">Community</a>
+    <a href="/challenges" class="nav__link">Challenges</a>
+    <a href="/leaderboard" class="nav__link">Leaderboard</a>
+    <a href="/recall" class="nav__link active">Recall</a>
+    <a href="/dashboard" class="nav__link">Dashboard</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="page-hero recall-hero">
+  <div class="page-hero__inner">
+    <span class="page-pill">Spaced Memory System</span>
+    <h1 class="page-hero__h1">Never make the same bug twice.<br><span class="grad-text">Active Spaced Recall.</span></h1>
+    <p class="page-hero__sub">Every bug you fix in the editor is automatically scheduled into review intervals (1 day, 3 days, 7 days). Re-verify your intuition before interview day.</p>
+    <div class="hero-stats-row">
+      <div class="hero-stat"><span class="hero-stat__num">3</span><span class="hero-stat__label">Due Today</span></div>
+      <div class="hero-stat"><span class="hero-stat__num">42</span><span class="hero-stat__label">Total Cards Mastered</span></div>
+      <div class="hero-stat"><span class="hero-stat__num">94%</span><span class="hero-stat__label">Retention Score</span></div>
+      <div class="hero-stat"><span class="hero-stat__num">7 Days</span><span class="hero-stat__label">Next Interval</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<section class="page-section">
+  <div class="page-container" style="max-width: 800px;">
+
+    <!-- CARD SESSION -->
+    <div class="dash-card" id="recall-card">
+      <div class="dash-card__header">
+        <div>
+          <span class="post-status open" style="margin-right:8px;">Card 1 of 3</span>
+          <span style="font-size:13px; font-weight:600; color:#64748B;">Topic: Binary Search Boundaries</span>
+        </div>
+        <span class="dash-card__badge">Interval: 3 Days</span>
+      </div>
+
+      <h2 style="font-size:20px; font-weight:700; color:#0F172A; margin-bottom:12px;">
+        Why does <code>while (lo &lt; hi)</code> skip the last element in binary search?
+      </h2>
+
+      <p style="font-size:14px; color:#475569; line-height:1.6; margin-bottom:20px;">
+        When <code>lo</code> equals <code>hi</code>, the target element at index <code>lo</code> has not been evaluated yet. If the loop terminates when <code>lo == hi</code>, what condition should be used?
+      </p>
+
+      <!-- CODE SNIPPET -->
+      <div class="post-card__code-snippet" style="margin-bottom:24px;">
+        <pre><code class="code-snippet-text"># Your previous submission had this mistake:
+def search(nums, target):
+    lo, hi = 0, len(nums) - 1
+    while lo < hi: # ❌ Exits when lo == hi without checking nums[lo]
+        mid = (lo + hi) // 2
+        ...</code></pre>
+      </div>
+
+      <!-- REVEAL BUTTON & SOLUTION -->
+      <div id="solution-box" style="display:none; background:#F0FDF4; border:1px solid #BBF7D0; border-radius:12px; padding:18px; margin-bottom:24px;">
+        <h4 style="font-size:15px; font-weight:700; color:#166534; margin-bottom:8px;">Correct Pattern & Explanation:</h4>
+        <p style="font-size:14px; color:#15803D; line-height:1.6;">
+          Use <code>while (lo &lt;= hi)</code> when your search space includes both boundaries <code>[lo, hi]</code>. Alternatively, if using <code>lo &lt; hi</code>, handle the single remaining element after the loop terminates.
+        </p>
+      </div>
+
+      <div style="display:flex; gap:12px; flex-wrap:wrap;" id="reveal-controls">
+        <button class="btn-page-primary" style="flex:1; justify-content:center;" id="btn-reveal-solution">
+          Show Solution & Explanation
+        </button>
+      </div>
+
+      <div style="display:none; gap:12px; flex-wrap:wrap; margin-top:16px;" id="rating-controls">
+        <button class="post-action-btn" style="flex:1; justify-content:center; background:#FEE2E2; color:#991B1B; border-color:#FCA5A5;" id="rate-hard">
+          Hard (Review Tomorrow)
+        </button>
+        <button class="post-action-btn" style="flex:1; justify-content:center; background:#FEF3C7; color:#92400E; border-color:#FDE68A;" id="rate-good">
+          Good (Review in 3 Days)
+        </button>
+        <button class="post-action-btn" style="flex:1; justify-content:center; background:#DCFCE7; color:#166534; border-color:#86EFAC;" id="rate-easy">
+          Easy (Review in 7 Days)
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#0F172A; color:#94A3B8; padding:48px 24px; text-align:center; border-top:1px solid #1E293B;">
+  <div class="page-container">
+    <p style="font-size:14px; font-weight:500;">© 2026 BugBuster Inc. All rights reserved. Spaced recall algorithm powered by SuperMemo-2 adaptation.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('btn-reveal-solution')?.addEventListener('click', function() {
+    document.getElementById('solution-box').style.display = 'block';
+    document.getElementById('reveal-controls').style.display = 'none';
+    document.getElementById('rating-controls').style.display = 'flex';
+  });
+
+  ['rate-hard', 'rate-good', 'rate-easy'].forEach(id => {
+    document.getElementById(id)?.addEventListener('click', function() {
+      alert('Card rating saved! Next review interval scheduled.');
+      window.location.href = '/dashboard';
+    });
+  });
+</script>
+<script src="main.js"></script>
+</body>
+</html>

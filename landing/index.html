@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BugBuster — Fix the Bug. Learn the Why.</title>
+  <meta name="description" content="Upload any coding question and get hints that teach instead of answers — and a community that has your back. Five hint levels, three language tracks, spaced recall." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════ STICKY NAV ═══════════════════════════ -->
+  <header class="nav" id="nav" role="banner">
+    <div class="nav__inner">
+      <a class="nav__wordmark" href="/" aria-label="BugBuster home">
+        Bug<span class="wm-accent">Buster</span>
+      </a>
+      <nav class="nav__links" aria-label="App features">
+        <a href="/" class="nav__link active" aria-current="page">Home</a>
+        <a href="/editor" class="nav__link">Editor</a>
+        <a href="/community" class="nav__link">Community</a>
+        <a href="/challenges" class="nav__link">Challenges</a>
+        <a href="/leaderboard" class="nav__link">Leaderboard</a>
+        <a href="/recall" class="nav__link">Recall</a>
+        <a href="/dashboard" class="nav__link">Dashboard</a>
+      </nav>
+      <div class="nav__right">
+        <a href="/editor" class="btn-primary nav__cta" id="nav-cta">Try Out</a>
+        <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="nav__drawer" id="nav-drawer" aria-hidden="true">
+      <a href="/" class="nav__link active">Home</a>
+      <a href="/editor" class="nav__link">Editor</a>
+      <a href="/community" class="nav__link">Community</a>
+      <a href="/challenges" class="nav__link">Challenges</a>
+      <a href="/leaderboard" class="nav__link">Leaderboard</a>
+      <a href="/recall" class="nav__link">Recall</a>
+      <a href="/dashboard" class="nav__link">Dashboard</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- S1 — HERO -->
+    <section class="s1-hero" id="hero" aria-label="Hero">
+      <div class="hero__content">
+        <h1 class="hero__h1">Fix the bug. Learn <span class="grad-text">the why.</span></h1>
+        <p class="hero__sub">Upload any coding question and get hints that teach instead of answers —<br>and a community that has your back.</p>
+        <a href="/editor" class="btn-hero" id="hero-cta">
+          Try Out
+          <span class="btn-hero__icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="#7B2CF5"/><path d="M8.5 11h5M11 8.5l2.5 2.5-2.5 2.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      </div>
+      <div class="hero-carousel" id="hero-carousel" role="region" aria-roledescription="carousel" aria-label="BugBuster modules">
+        <div class="hc__track" id="hc-track">
+          <article class="hc__card" data-index="0" data-theme="cyan-violet" aria-label="Code Editor module">
+            <h3 class="hc__card-title">Code Editor</h3>
+            <div class="hc__mock">
+              <div class="mock-prompt-bar"><span class="mock-spark">✦</span><span class="mock-typed" id="mc-typed-0">Paste your question…</span></div>
+              <div class="mock-hints-row">
+                <span class="mock-chip">L1</span><span class="mock-chip">L2</span><span class="mock-chip">L3</span>
+                <span class="mock-chip locked">L4</span><span class="mock-chip locked">L5</span>
+              </div>
+            </div>
+          </article>
+          <article class="hc__card" data-index="1" data-theme="hot" aria-label="Open Server module">
+            <h3 class="hc__card-title">Open Server</h3>
+            <div class="hc__mock">
+              <div class="mock-post-card">
+                <div class="mock-post-header">
+                  <span class="mock-avatar" style="background:#F062C0">P</span>
+                  <span class="mock-post-meta">Priya · <span class="mock-status open">Open</span></span>
+                </div>
+                <p class="mock-post-body">Stuck on Binary Search — can anyone help?</p>
+                <div class="mock-post-footer"><span class="mock-chip sm">#arrays</span><span class="mock-chip sm">3 trying</span></div>
+              </div>
+            </div>
+          </article>
+          <article class="hc__card" data-index="2" data-theme="violet-magenta" aria-label="Challenges module">
+            <h3 class="hc__card-title">Challenges</h3>
+            <div class="hc__mock">
+              <div class="mock-lang-chips">
+                <span class="mock-chip active">Java</span><span class="mock-chip">C++</span><span class="mock-chip">Python</span>
+              </div>
+              <p class="mock-label-sm">50 each · 5 levels</p>
+              <div class="mock-tile-grid">
+                <div class="mock-tile solved">1</div><div class="mock-tile solved">2</div>
+                <div class="mock-tile solved">3</div><div class="mock-tile active">4</div>
+                <div class="mock-tile">5</div><div class="mock-tile locked">6</div>
+              </div>
+            </div>
+          </article>
+          <article class="hc__card" data-index="3" data-theme="mint-lime" aria-label="Leaderboard module">
+            <h3 class="hc__card-title">Leaderboard</h3>
+            <div class="hc__mock">
+              <div class="mock-rank-row">#12 · Ishaan · 2,400 XP</div>
+              <div class="mock-rank-row you">#14 · You · 1,980 XP</div>
+              <div class="mock-rank-row">#15 · Dev · 1,940 XP</div>
+              <p class="mock-label-sm" style="margin-top:8px">38 XP to #13</p>
+            </div>
+          </article>
+          <article class="hc__card" data-index="4" data-theme="sunset" aria-label="Spaced Recall module">
+            <h3 class="hc__card-title">Spaced Recall</h3>
+            <div class="hc__mock">
+              <div class="mock-daily-pill">🔥 Daily Challenge · due today</div>
+              <div class="mock-streak">7-day streak</div>
+              <div class="mock-mem-ring" aria-label="Memory strength ring"></div>
+            </div>
+          </article>
+          <article class="hc__card" data-index="5" data-theme="cyan-violet" aria-label="History module">
+            <h3 class="hc__card-title">History</h3>
+            <div class="hc__mock">
+              <div class="mock-hist-row">
+                <span class="mock-code-thumb">&lt;/&gt;</span>
+                <div>
+                  <p class="mock-hist-title">Continue: Two Sum</p>
+                  <p class="mock-label-sm">L2 unlocked · Python · 12m ago</p>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="hc__card" data-index="6" data-theme="violet-magenta" aria-label="Dashboard module">
+            <h3 class="hc__card-title">Dashboard</h3>
+            <div class="hc__mock">
+              <svg class="mock-sparkline" viewBox="0 0 160 50" fill="none" aria-hidden="true">
+                <polyline points="0,40 30,28 60,35 90,15 120,20 160,8" stroke="url(#spk-grad)" stroke-width="2" fill="none"/>
+                <defs><linearGradient id="spk-grad" x1="0" x2="160" y1="0" y2="0"><stop offset="0%" stop-color="#22D3EE"/><stop offset="100%" stop-color="#7B2CF5"/></linearGradient></defs>
+              </svg>
+              <div class="mock-streak">🔥 7-day streak</div>
+            </div>
+          </article>
+          <article class="hc__card" data-index="7" data-theme="mint-lime" aria-label="Profile module">
+            <h3 class="hc__card-title">Profile</h3>
+            <div class="hc__mock">
+              <div class="mock-profile-row">
+                <div class="mock-avatar lg" style="background:linear-gradient(135deg,#22D3EE,#7B2CF5)">A</div>
+                <div><p class="mock-hist-title">Aarav Shah</p><p class="mock-label-sm">IIT Bombay</p></div>
+              </div>
+              <div class="mock-badges">
+                <span class="mock-badge">🏅 Solver</span><span class="mock-badge">🔥 7-streak</span><span class="mock-badge">⚡ First-try</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="hc__pager-row" role="group" aria-label="Carousel controls">
+        <div class="hc__pager" id="hc-pager" role="tablist" aria-label="Carousel slides"></div>
+        <button class="hc__pause" id="hc-pause" aria-label="Pause autoplay" aria-pressed="false">
+          <svg class="icon-pause" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2" y="1" width="3.5" height="12" rx="1" fill="currentColor"/><rect x="8.5" y="1" width="3.5" height="12" rx="1" fill="currentColor"/></svg>
+          <svg class="icon-play" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" style="display:none"><path d="M3 1.5l10 5.5-10 5.5V1.5z" fill="currentColor"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- S2 — CODE EDITOR -->
+    <section class="s2-editor" id="editor" aria-label="Code Editor">
+      <div class="container">
+        <div class="section-header">
+          <span class="pill pill--lavender">Code Editor</span>
+          <div class="product-mark">
+            <span class="product-wordmark">BugBuster <em>Editor</em></span>
+            <span class="product-badge">5 hint levels</span>
+          </div>
+          <h2 class="s2__h2">It all starts with a <span class="grad-text">bug.</span></h2>
+        </div>
+        <div class="seg-control" role="tablist" aria-label="Editor stages" id="s2-tabs">
+          <button class="seg-control__btn active" role="tab" aria-selected="true" aria-controls="s2-panel-0" id="s2-tab-0" data-idx="0">Upload</button>
+          <button class="seg-control__btn" role="tab" aria-selected="false" aria-controls="s2-panel-1" id="s2-tab-1" data-idx="1">Analyse</button>
+          <button class="seg-control__btn" role="tab" aria-selected="false" aria-controls="s2-panel-2" id="s2-tab-2" data-idx="2">Solve</button>
+          <button class="seg-control__btn" role="tab" aria-selected="false" aria-controls="s2-panel-3" id="s2-tab-3" data-idx="3">Hints</button>
+        </div>
+        <div class="s2__demo-card" id="s2-demo-card" aria-live="polite">
+          <!-- Panel 0 -->
+          <div class="s2__panel active" id="s2-panel-0" role="tabpanel" aria-labelledby="s2-tab-0">
+            <div class="panel-upload">
+              <h3 class="panel-upload__title grad-text-blue">What are we solving today?</h3>
+              <div class="prompt-box" id="s2-prompt-box">
+                <button class="prompt-box__add" aria-label="Add content">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M10 6v8M6 10h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </button>
+                <p class="prompt-box__text" id="s2-typed-text" aria-live="polite"></p>
+                <span class="prompt-box__caret" aria-hidden="true"></span>
+                <button class="prompt-box__send" aria-label="Send question">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#7B2CF5"/><path d="M7 10h6M11 8l2 2-2 2" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+              <div class="chips-row">
+                <span class="chip">Paste</span><span class="chip">File</span><span class="chip">Screenshot</span><span class="chip">Link</span>
+              </div>
+              <div class="cursor-tag cursor-tag--large" id="ct-aarav" style="--c:#8B2EEA" aria-hidden="true">
+                <svg class="cursor-arrow" width="16" height="20" viewBox="0 0 16 20"><path d="M1 1l13 8-7 1-3 8-3-17z" fill="#8B2EEA"/></svg>
+                <span class="cursor-label">Aarav</span>
+              </div>
+            </div>
+          </div>
+          <!-- Panel 1 -->
+          <div class="s2__panel" id="s2-panel-1" role="tabpanel" aria-labelledby="s2-tab-1" hidden>
+            <div class="panel-analyse">
+              <div class="analyse-rail">
+                <div class="rail-item active"><svg width="20" height="20" viewBox="0 0 20 20"><rect x="2" y="4" width="16" height="3" rx="1.5" fill="currentColor"/><rect x="2" y="9" width="12" height="3" rx="1.5" fill="currentColor" opacity=".6"/><rect x="2" y="14" width="8" height="3" rx="1.5" fill="currentColor" opacity=".4"/></svg><span>Approaches</span></div>
+                <div class="rail-item"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M10 7v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Edge cases</span></div>
+                <div class="rail-item"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M10 4v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Complexity</span></div>
+                <div class="rail-item"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 7h14M3 13h14" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg><span>Topics</span></div>
+              </div>
+              <div class="analyse-content">
+                <h4 class="analyse-heading">Detected approaches</h4>
+                <div class="approach-card stagger-1"><div class="approach-card__dot"></div><div><p class="approach-card__name">Brute force</p><p class="approach-card__meta">O(n) · scan all elements</p></div><span class="approach-badge">Alternative</span></div>
+                <div class="approach-card stagger-2"><div class="approach-card__dot active"></div><div><p class="approach-card__name">Binary search</p><p class="approach-card__meta">O(log n) · expected approach</p></div><span class="approach-badge expected">Expected</span></div>
+                <div class="approach-card stagger-3"><div class="approach-card__dot"></div><div><p class="approach-card__name">Two pointers</p><p class="approach-card__meta">O(n) · alternative</p></div><span class="approach-badge">Alternative</span></div>
+                <h4 class="analyse-heading" style="margin-top:20px">Edge cases</h4>
+                <div class="edge-chips"><span class="chip">empty list</span><span class="chip">one element</span><span class="chip">target at ends</span><span class="chip">duplicates</span></div>
+                <div class="cursor-tag cursor-tag--small" id="ct-meera" style="--c:#F062C0" aria-hidden="true">
+                  <svg class="cursor-arrow" width="12" height="16" viewBox="0 0 12 16"><path d="M1 1l10 6-5 1-2 7-3-14z" fill="#F062C0"/></svg>
+                  <span class="cursor-label">Meera</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Panel 2 -->
+          <div class="s2__panel" id="s2-panel-2" role="tabpanel" aria-labelledby="s2-tab-2" hidden>
+            <div class="panel-solve">
+              <div class="solve-editor">
+                <div class="solve-editor__lines" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+                <pre class="solve-editor__code"><code><span class="kw">def</span> <span class="fn">search</span>(nums, target):
+    lo, hi = 0, <span class="fn">len</span>(nums)
+    <span class="kw">while</span> lo &lt; hi:
+        mid = (lo + hi) <span class="op">//</span> 2
+        <span class="kw">if</span> nums[mid] == target:
+            <span class="kw">return</span> mid
+        <span class="kw">elif</span> nums[mid] <span class="op">&lt;</span> target:
+            lo = mid <span class="op">+</span> 1
+        <span class="kw">else</span>:
+            hi = mid</code></pre>
+                <div class="squiggle" aria-label="Potential bug on line 8"></div>
+              </div>
+              <div class="solve-result-bar"><span class="res-chip wrong">✗ 7/9 passed</span><span class="res-note">Fails: target at boundary</span></div>
+              <div class="cursor-tag cursor-tag--small" id="ct-kabir" style="--c:#F4731C;position:absolute;top:60%;left:55%;" aria-hidden="true">
+                <svg class="cursor-arrow" width="12" height="16" viewBox="0 0 12 16"><path d="M1 1l10 6-5 1-2 7-3-14z" fill="#F4731C"/></svg>
+                <span class="cursor-label">Kabir</span>
+              </div>
+            </div>
+          </div>
+          <!-- Panel 3 -->
+          <div class="s2__panel" id="s2-panel-3" role="tabpanel" aria-labelledby="s2-tab-3" hidden>
+            <div class="panel-hints">
+              <div class="hints-meta"><span class="hints-level-label">Level 1 of 5</span><div class="hints-meter" aria-label="Hint level progress"><div class="hints-meter__fill" style="width:20%"></div></div></div>
+              <div class="hint-card unlocked stagger-1"><div class="hint-card__header"><span class="hint-badge l1">L1</span><span class="hint-card__name">Something's off here</span></div><p class="hint-card__body">Something around your loop gives wrong output for some inputs. The core loop logic might be slightly off.</p></div>
+              <div class="hint-card locked stagger-2"><div class="hint-card__header"><span class="hint-badge l2">L2</span><span class="hint-card__name">Check this line</span><span class="hint-lock-icon">🔒</span></div><p class="hint-card__promise">A pointer to the exact line.</p></div>
+              <div class="hint-card locked stagger-3"><div class="hint-card__header"><span class="hint-badge l3">L3</span><span class="hint-card__name">Think about this</span><span class="hint-lock-icon">🔒</span></div><p class="hint-card__promise">A guiding question, no code.</p></div>
+              <div class="hint-card locked stagger-4"><div class="hint-card__header"><span class="hint-badge l4">L4</span><span class="hint-card__name">Almost there</span><span class="hint-lock-icon">🔒</span></div><p class="hint-card__promise">The kind of change needed, in words.</p></div>
+              <div class="hint-card locked dashed stagger-5"><div class="hint-card__header"><span class="hint-badge l5">L5</span><span class="hint-card__name">Here's the fix</span><span class="hint-lock-icon">🔒</span></div><p class="hint-card__promise">Minimal diff — confirm before viewing.</p></div>
+              <div class="cursor-tag cursor-tag--large" id="ct-nora" style="--c:#8B2EEA;position:absolute;top:30%;right:8%;" aria-hidden="true">
+                <svg class="cursor-arrow" width="16" height="20" viewBox="0 0 16 20"><path d="M1 1l13 8-7 1-3 8-3-17z" fill="#8B2EEA"/></svg>
+                <span class="cursor-label">Nora</span>
+              </div>
+            </div>
+          </div>
+          <button class="demo-pause-btn" id="s2-pause" aria-label="Pause tab autoplay" aria-pressed="false">
+            <svg class="icon-pause" width="12" height="12" viewBox="0 0 14 14"><rect x="2" y="1" width="3.5" height="12" rx="1" fill="currentColor"/><rect x="8.5" y="1" width="3.5" height="12" rx="1" fill="currentColor"/></svg>
+            <svg class="icon-play" width="12" height="12" viewBox="0 0 14 14" style="display:none"><path d="M3 1.5l10 5.5-10 5.5V1.5z" fill="currentColor"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- S3 — OPEN SERVER -->
+    <section class="s3-community" id="community" aria-label="Open Server">
+      <div class="container">
+        <div class="section-header centred">
+          <h2 class="s3__h2 reveal-title">Stuck? <span class="grad-text">Post it.</span> Someone will pick it up.</h2>
+          <p class="s3__sub">200 learners, one open feed. Share the question you can't crack and let others finish it with you.</p>
+        </div>
+        <div class="s3-carousel-wrap">
+          <div class="s3-carousel" id="s3-carousel" role="region" aria-roledescription="carousel" aria-label="Open Server features">
+            <div class="s3-carousel__track" id="s3-track">
+              <article class="s3-card" data-theme="cyan-violet" aria-label="Post what's stuck">
+                <span class="s3-card__tag">Post</span>
+                <h3 class="s3-card__title">Post what's stuck</h3>
+                <p class="s3-card__body">Share your question and your broken code in seconds.</p>
+                <div class="s3-card__mock">
+                  <div class="mock-composer"><div class="mock-composer__title">Binary search returns wrong index</div><div class="mock-composer__code">def search(nums, target):<br>  lo, hi = 0, len(nums)…</div><div class="mock-composer__field">What I tried: checked loop bounds…</div></div>
+                </div>
+              </article>
+              <article class="s3-card" data-theme="hot" aria-label="Anyone can jump in">
+                <span class="s3-card__tag">Fork</span>
+                <h3 class="s3-card__title">Anyone can jump in</h3>
+                <p class="s3-card__body">One click to try a fix on your own copy.</p>
+                <div class="s3-card__mock">
+                  <div class="mock-post-card"><div class="mock-post-header" style="display:flex;align-items:center;gap:8px"><div style="display:flex"><span class="mock-avatar" style="background:#8B2EEA">A</span><span class="mock-avatar" style="background:#F062C0;margin-left:-6px">M</span><span class="mock-avatar" style="background:#F4731C;margin-left:-6px">K</span></div><span class="mock-chip sm amber">3 trying</span></div><div class="mock-try-btn">Try fixing this →</div></div>
+                </div>
+              </article>
+              <article class="s3-card" data-theme="violet-magenta" aria-label="Fixes are verified">
+                <span class="s3-card__tag">Verify</span>
+                <h3 class="s3-card__title">Fixes are verified</h3>
+                <p class="s3-card__body">The same autograder checks every contribution.</p>
+                <div class="s3-card__mock">
+                  <div class="mock-pass-panel"><span class="pass-icon">✓</span><span>All tests passed</span></div>
+                  <div class="mock-diff"><span class="diff-del">- hi = mid</span><span class="diff-add">+ hi = mid - 1</span></div>
+                </div>
+              </article>
+              <article class="s3-card" data-theme="mint-lime" aria-label="Talk it through">
+                <span class="s3-card__tag">Talk</span>
+                <h3 class="s3-card__title">Talk it through</h3>
+                <p class="s3-card__body">A thread on every post for ideas before code.</p>
+                <div class="s3-card__mock">
+                  <div class="mock-thread">
+                    <div class="mock-bubble"><span class="mock-avatar sm" style="background:#8B2EEA">A</span><span>Have you tried checking the boundary?</span></div>
+                    <div class="mock-bubble right"><span class="mock-avatar sm" style="background:#F062C0">M</span><span>Condition should be &lt;= not &lt;</span></div>
+                  </div>
+                </div>
+              </article>
+              <article class="s3-card" data-theme="sunset" aria-label="Earn the Solved badge">
+                <span class="s3-card__tag">Solved</span>
+                <h3 class="s3-card__title">Earn the Solved badge</h3>
+                <p class="s3-card__body">Fix someone's bug, get credit and XP.</p>
+                <div class="s3-card__mock">
+                  <div class="mock-badge-toast"><div class="mock-badge big">🏅 Solved</div><div class="xp-toast">+40 XP</div></div>
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="cursor-tag cursor-tag--small s3-float" id="ct-enzo" style="--c:#8B2EEA" aria-hidden="true">
+            <svg class="cursor-arrow" width="12" height="16" viewBox="0 0 12 16"><path d="M1 1l10 6-5 1-2 7-3-14z" fill="#8B2EEA"/></svg>
+            <span class="cursor-label">Enzo</span>
+          </div>
+        </div>
+        <div class="s3__controls" role="group" aria-label="Carousel controls">
+          <span class="s3__counter" id="s3-counter" aria-live="polite">1 / 5</span>
+          <button class="round-btn" id="s3-prev" aria-label="Previous card" disabled>
+            <svg width="14" height="14" viewBox="0 0 14 14"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          </button>
+          <button class="round-btn" id="s3-next" aria-label="Next card">
+            <svg width="14" height="14" viewBox="0 0 14 14"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- S4 — LEARN IN MORE WAYS -->
+    <section class="s4-learn" id="challenges" aria-label="Learn in more ways">
+      <div class="container">
+        <h2 class="s4__h2 reveal-title">Learn in more ways than ever</h2>
+
+        <!-- Row A -->
+        <div class="feature-row row-a" id="leaderboard">
+          <div class="feature-row__text reveal-left">
+            <span class="feat-pill">Challenges</span>
+            <h3 class="feat-h3">150 challenges, three languages</h3>
+            <p class="feat-body">DSA in Java, C++ and Python — 50 questions each, from warm-up to boss level. Solve one and your name goes on the board.</p>
+          </div>
+          <div class="feature-row__mock reveal-right">
+            <div class="mock-card">
+              <div class="mock-lang-tabs"><span class="mock-tab active">Java</span><span class="mock-tab">C++</span><span class="mock-tab">Python</span></div>
+              <div class="mock-tile-grid lg">
+                <div class="mock-tile solved">✓</div><div class="mock-tile solved">✓</div><div class="mock-tile solved">✓</div><div class="mock-tile solved">✓</div><div class="mock-tile solved">✓</div>
+                <div class="mock-tile active pulse">6</div><div class="mock-tile">7</div><div class="mock-tile">8</div><div class="mock-tile locked">🔒</div><div class="mock-tile locked">🔒</div>
+              </div>
+              <div class="cursor-tag cursor-tag--small mock-cursor" id="ct-ishaan" style="--c:#4C5BF0" aria-hidden="true">
+                <svg class="cursor-arrow" width="12" height="16" viewBox="0 0 12 16"><path d="M1 1l10 6-5 1-2 7-3-14z" fill="#4C5BF0"/></svg>
+                <span class="cursor-label">Ishaan</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row B -->
+        <div class="feature-row row-b">
+          <div class="feature-row__mock reveal-left">
+            <div class="mock-card">
+              <div class="mock-toggle-row"><span class="mock-tab active">Weekly</span><span class="mock-tab">All-time</span></div>
+              <div class="mock-podium">
+                <div class="podium-card rank2"><div class="podium-avatar" style="background:#D5BFFD">M</div><p>Meera</p><p class="podium-xp">2,840 XP</p></div>
+                <div class="podium-card rank1"><div class="podium-avatar gold">A</div><p>Aarav</p><p class="podium-xp">3,200 XP</p><span class="crown">👑</span></div>
+                <div class="podium-card rank3"><div class="podium-avatar" style="background:#B1F1FA">K</div><p>Kabir</p><p class="podium-xp">2,610 XP</p></div>
+              </div>
+              <div class="mock-rank-you"><span>#14 · You</span><span>1,980 XP</span><span class="rank-gap">+38 XP to #13</span></div>
+              <div class="cursor-tag cursor-tag--small mock-cursor" id="ct-msrao" style="--c:#C23BE0" aria-hidden="true">
+                <svg class="cursor-arrow" width="12" height="16" viewBox="0 0 12 16"><path d="M1 1l10 6-5 1-2 7-3-14z" fill="#C23BE0"/></svg>
+                <span class="cursor-label">Ms Rao</span>
+              </div>
+            </div>
+          </div>
+          <div class="feature-row__text reveal-right">
+            <span class="feat-pill">Leaderboard</span>
+            <h3 class="feat-h3">See where you stand in your course</h3>
+            <p class="feat-body">Pick your course and watch your rank move — weekly or all-time, with your college alongside you.</p>
+          </div>
+        </div>
+
+        <!-- Row C -->
+        <div class="feature-row row-c" id="recall">
+          <div class="feature-row__text reveal-left">
+            <span class="feat-pill">Spaced Recall</span>
+            <h3 class="feat-h3">Remember it next week, not just today</h3>
+            <p class="feat-body">BugBuster tracks what you learn and how you solved it, then brings topics back right before you'd forget — with a Daily Challenge to keep them fresh.</p>
+          </div>
+          <div class="feature-row__mock reveal-right">
+            <div class="mock-card">
+              <div class="mock-daily-card">
+                <div class="mock-daily-header"><span class="daily-flame">🔥</span><div><p class="daily-title">Daily Challenge</p><p class="daily-sub">Binary Search · due today</p></div><div class="daily-streak">7</div></div>
+                <div class="mem-ring-row">
+                  <div class="mem-topic"><svg class="mem-ring-svg" viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" stroke="#E5E7EB" stroke-width="4" fill="none"/><circle cx="22" cy="22" r="18" stroke="url(#mr-grad)" stroke-width="4" fill="none" stroke-dasharray="113" stroke-dashoffset="28" stroke-linecap="round" transform="rotate(-90 22 22)"/><defs><linearGradient id="mr-grad"><stop offset="0%" stop-color="#22D3EE"/><stop offset="100%" stop-color="#7B2CF5"/></linearGradient></defs></svg><span>Arrays</span></div>
+                  <div class="mem-topic"><svg class="mem-ring-svg" viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" stroke="#E5E7EB" stroke-width="4" fill="none"/><circle cx="22" cy="22" r="18" stroke="#F4731C" stroke-width="4" fill="none" stroke-dasharray="113" stroke-dashoffset="57" stroke-linecap="round" transform="rotate(-90 22 22)"/></svg><span>Binary Search</span></div>
+                  <div class="mem-topic"><svg class="mem-ring-svg" viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" stroke="#E5E7EB" stroke-width="4" fill="none"/><circle cx="22" cy="22" r="18" stroke="#1FA463" stroke-width="4" fill="none" stroke-dasharray="113" stroke-dashoffset="11" stroke-linecap="round" transform="rotate(-90 22 22)"/></svg><span>Sorting</span></div>
+                </div>
+              </div>
+              <div class="cursor-tag cursor-tag--small mock-cursor" id="ct-dev" style="--c:#C23BE0" aria-hidden="true">
+                <svg class="cursor-arrow" width="12" height="16" viewBox="0 0 12 16"><path d="M1 1l10 6-5 1-2 7-3-14z" fill="#C23BE0"/></svg>
+                <span class="cursor-label">Dev</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S5 — ALL IN ONE PLACE -->
+    <section class="s5-allinone" id="progress" aria-label="All in one place">
+      <div class="container">
+        <div class="section-header centred">
+          <h2 class="s5__h2 reveal-title">Everything you've done. <span class="grad-text-dark">All in one place.</span></h2>
+          <p class="s5__sub">Pick up where you left off, watch yourself improve, and keep a profile you're proud of.</p>
+        </div>
+        <div class="s5__grid">
+          <div class="s5-card card-a reveal-up" aria-label="History">
+            <h4 class="s5-card__title">History</h4>
+            <p class="s5-card__body">Every question, every attempt, every hint.</p>
+            <div class="hist-timeline">
+              <div class="hist-row"><span class="hist-label">Two Sum</span><span class="res-chip pass">✓ Passed</span><span class="hist-meta">L1 · 14m</span></div>
+              <div class="hist-row"><span class="hist-label">Binary Search</span><span class="res-chip wrong">✗ Wrong</span><span class="hist-meta">L3 · 28m</span></div>
+              <div class="hist-row active"><span class="hist-label">Merge Sort</span><span class="res-chip crash">🔥 Crash</span><span class="hist-meta">L2 · 9m</span></div>
+            </div>
+            <div class="hist-cta-strip">Continue where you left off →</div>
+          </div>
+          <div class="s5-card card-b reveal-up" style="animation-delay:.1s" aria-label="Personal Dashboard">
+            <h4 class="s5-card__title">Personal Dashboard</h4>
+            <p class="s5-card__body">See how you're getting sharper over time.</p>
+            <svg class="dash-chart" viewBox="0 0 240 80" fill="none" aria-label="XP growth chart">
+              <polyline points="0,70 40,55 80,60 120,35 160,40 200,20 240,12" stroke="#E5E7EB" stroke-width="2"/>
+              <polyline points="0,70 40,55 80,60 120,35 160,40 200,20 240,12" stroke="url(#dash-grad)" stroke-width="2.5"/>
+              <defs><linearGradient id="dash-grad" x1="0" x2="240" y1="0" y2="0"><stop offset="0%" stop-color="#22D3EE"/><stop offset="100%" stop-color="#7B2CF5"/></linearGradient></defs>
+            </svg>
+            <div class="skill-bars">
+              <div class="skill-bar-row"><span>Off-by-one</span><div class="skill-bar"><div class="skill-bar__fill" style="width:78%"></div></div></div>
+              <div class="skill-bar-row"><span>Operators</span><div class="skill-bar"><div class="skill-bar__fill" style="width:55%"></div></div></div>
+              <div class="skill-bar-row"><span>Edge cases</span><div class="skill-bar"><div class="skill-bar__fill" style="width:42%"></div></div></div>
+            </div>
+          </div>
+          <div class="s5-card card-c reveal-up" style="animation-delay:.2s" aria-label="Profile">
+            <div class="profile-row">
+              <div class="profile-avatar">A</div>
+              <div class="profile-info"><h4 class="profile-name">Aarav Shah</h4><p class="profile-college">IIT Bombay</p></div>
+              <div class="profile-badges"><span class="profile-badge">🏅 Solver</span><span class="profile-badge">🔥 7-streak</span><span class="profile-badge">⚡ First-try</span></div>
+            </div>
+            <div class="heatmap" id="heatmap" aria-label="12-week activity heatmap"></div>
+          </div>
+        </div>
+        <div class="s5__closing-cta">
+          <a href="/editor" class="btn-closing" id="closing-cta">
+            Try Out
+            <span class="btn-hero__icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="#7B2CF5"/><path d="M8.5 11h5M11 8.5l2.5 2.5-2.5 2.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <a class="nav__wordmark" href="/">Bug<span class="wm-accent">Buster</span></a>
+          <p class="footer__tagline">Fix the bug. Learn the why.</p>
+        </div>
+        <div class="footer__cols">
+          <div class="footer__col"><h5 class="footer__col-head">Learn</h5><a href="#editor" class="footer__link">Code Editor</a><a href="#editor" class="footer__link">Question analysis</a><a href="#editor" class="footer__link">Test generation</a><a href="#editor" class="footer__link">Hint levels</a></div>
+          <div class="footer__col"><h5 class="footer__col-head">Community</h5><a href="#community" class="footer__link">Open Server</a><a href="#community" class="footer__link">Post a bug</a><a href="#community" class="footer__link">Fork &amp; fix</a><a href="#community" class="footer__link">Solved badges</a></div>
+          <div class="footer__col"><h5 class="footer__col-head">Compete</h5><a href="#challenges" class="footer__link">Challenges</a><a href="#leaderboard" class="footer__link">Leaderboard</a><a href="#leaderboard" class="footer__link">Weekly / All-time</a><a href="#leaderboard" class="footer__link">College ranking</a></div>
+          <div class="footer__col"><h5 class="footer__col-head">Grow</h5><a href="#recall" class="footer__link">Spaced Recall</a><a href="#recall" class="footer__link">Daily Challenge</a><a href="#progress" class="footer__link">History</a><a href="#progress" class="footer__link">Dashboard</a><a href="#progress" class="footer__link">Profile</a></div>
+          <div class="footer__col"><h5 class="footer__col-head">Company</h5><a href="#" class="footer__link">About</a><a href="#" class="footer__link">Privacy</a><a href="#" class="footer__link">Terms</a><a href="#" class="footer__link">Accessibility</a></div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <div class="footer__locale">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2"/><ellipse cx="8" cy="8" rx="3" ry="7" stroke="currentColor" stroke-width="1.2"/><line x1="1" y1="8" x2="15" y2="8" stroke="currentColor" stroke-width="1.2"/></svg>
+          English (US)
+        </div>
+        <div class="footer__socials">
+          <a href="#" aria-label="LinkedIn" class="footer__social-link"><svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor"><rect width="18" height="18" rx="3"/><path d="M5 7h2v6H5V7zm1-1.5a1 1 0 110-2 1 1 0 010 2zM8 7h2v.75C10.3 7.3 10.9 7 11.5 7c1.4 0 2 .9 2 2.5V13h-2v-3c0-.8-.3-1.2-.9-1.2s-1 .4-1 1.2V13H8V7z" fill="white"/></svg></a>
+          <a href="#" aria-label="X (Twitter)" class="footer__social-link"><svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor"><rect width="18" height="18" rx="3"/><path d="M13 5L9.5 9 13 13h-2l-2-2.5L7 13H5l3.5-4L5 5h2l2 2.5L11 5h2z" fill="white"/></svg></a>
+          <a href="#" aria-label="YouTube" class="footer__social-link"><svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor"><rect width="18" height="18" rx="3"/><path d="M13.5 9s0-2.5-.3-3.5c-.2-.7-.7-1.2-1.4-1.3C10.7 4 9 4 9 4s-1.7 0-2.8.2c-.7.1-1.2.6-1.4 1.3C4.5 6.5 4.5 9 4.5 9s0 2.5.3 3.5c.2.7.7 1.2 1.4 1.3C7.3 14 9 14 9 14s1.7 0 2.8-.2c.7-.1 1.2-.6 1.4-1.3.3-1 .3-3.5.3-3.5zM7.8 11V7l3.5 2-3.5 2z" fill="white"/></svg></a>
+        </div>
+        <p class="footer__legal">Privacy · Terms · © 2026 BugBuster</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

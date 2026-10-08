@@ -1,0 +1,41 @@
+import { runStudentCode } from '../../../../lib/services/onlineCompiler';
+import { analyzeStudentSubmission } from '../../../../lib/services/geminiCodeAnalyzer';
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+    const { problem, language, code, input, previousHints } = body;
+
+    if (!language || !code) {
+      return new Response(
+        JSON.stringify({ error: 'INVALID_CODE: Language and source code are required.' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Step 1: Execute via OnlineCompiler.io
+    const executionResult = await runStudentCode({ language, code, input });
+
+    // Step 2: Analyze via Gemini AI
+    const analysisResult = await analyzeStudentSubmission({
+      problem,
+      language,
+      code,
+      executionResult,
+      previousHints
+    });
+
+    return new Response(
+      JSON.stringify({
+        execution: executionResult,
+        analysis: analysisResult
+      }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
+  } catch (err: any) {
+    return new Response(
+      JSON.stringify({ error: `EVALUATION_FAILED: ${err.message}` }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+}

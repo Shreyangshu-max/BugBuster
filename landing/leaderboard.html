@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BugBuster — Leaderboards</title>
+  <meta name="description" content="BugBuster Leaderboards — top rankings for Program Completed, Courses Completed, Challenges Completed, and Languages Mastered." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="pages.css" />
+</head>
+<body style="background:#F8FAFC;">
+
+<!-- STICKY NAV -->
+<header class="nav" id="nav" role="banner">
+  <div class="nav__inner">
+    <a class="nav__wordmark" href="/" aria-label="BugBuster home">Bug<span class="wm-accent">Buster</span></a>
+    <nav class="nav__links" aria-label="App features">
+      <a href="/" class="nav__link">Home</a>
+      <a href="/editor" class="nav__link">Editor</a>
+      <a href="/community" class="nav__link">Community</a>
+      <a href="/challenges" class="nav__link">Challenges</a>
+      <a href="/leaderboard" class="nav__link active" aria-current="page">Leaderboard</a>
+      <a href="/recall" class="nav__link">Recall</a>
+      <a href="/dashboard" class="nav__link">Dashboard</a>
+    </nav>
+    <div class="nav__right">
+      <a href="/editor" class="btn-primary">Try Editor</a>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- TOP 3D PODIUM HERO SECTION -->
+<section class="lb-hero-section">
+  <div class="page-container" style="max-width:900px;">
+    
+    <!-- HEADER BAR -->
+    <div class="lb-hero-header">
+      <a href="/" class="lb-back-btn" aria-label="Go back">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      </a>
+      <h1 class="lb-hero-title">Leaderboards</h1>
+    </div>
+
+    <!-- 3D PODIUM CONTAINER -->
+    <div class="lb-podium-container">
+
+      <!-- RANK 2 (LEFT) -->
+      <div class="lb-podium-col rank-2">
+        <div class="lb-podium-user">
+          <div class="lb-avatar-ring">
+            <img id="p2-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80" alt="Rank 2 photo" />
+          </div>
+          <div class="lb-podium-name" id="p2-name">Alexa M</div>
+          <div class="lb-podium-badge" id="p2-badge">42 Programs</div>
+        </div>
+        <div class="lb-3d-block block-2">
+          <span class="lb-3d-block__num">2</span>
+        </div>
+      </div>
+
+      <!-- RANK 1 (CENTER - HIGHEST) -->
+      <div class="lb-podium-col rank-1">
+        <div class="lb-podium-user">
+          <div class="lb-avatar-ring">
+            <img id="p1-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Rank 1 photo" />
+          </div>
+          <div class="lb-podium-name" id="p1-name">Davis K</div>
+          <div class="lb-podium-badge" id="p1-badge">48 Programs</div>
+        </div>
+        <div class="lb-3d-block block-1">
+          <span class="lb-3d-block__num">1</span>
+        </div>
+      </div>
+
+      <!-- RANK 3 (RIGHT) -->
+      <div class="lb-podium-col rank-3">
+        <div class="lb-podium-user">
+          <div class="lb-avatar-ring">
+            <img id="p3-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" alt="Rank 3 photo" />
+          </div>
+          <div class="lb-podium-name" id="p3-name">Rahul S</div>
+          <div class="lb-podium-badge" id="p3-badge">39 Programs</div>
+        </div>
+        <div class="lb-3d-block block-3">
+          <span class="lb-3d-block__num">3</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- FILTERS & TWO-COLUMN MAIN SECTION -->
+<section class="lb-filters-section">
+  <div class="page-container" style="max-width: 1060px;">
+
+    <!-- DROPDOWN FILTERS ROW -->
+    <div class="lb-filters-row">
+      <select class="lb-filter-select" id="lb-scope-select" aria-label="Scope filter">
+        <option value="global">Global</option>
+        <option value="college">My College</option>
+        <option value="batch">My Batch</option>
+      </select>
+
+      <select class="lb-filter-select" id="lb-main-filter" aria-label="Leaderboard category filter">
+        <option value="program">Program Completed</option>
+        <option value="courses">Courses Completed</option>
+        <option value="challenges">Challenges Completed</option>
+        <option value="languages">Languages Mastered</option>
+      </select>
+    </div>
+
+    <!-- MAIN TWO-COLUMN GRID: LEFT (RANKINGS LIST), RIGHT (PIE CHART & USER POS) -->
+    <div class="lb-main-grid">
+
+      <!-- LEFT COLUMN: RANKINGS PHOTO LIST (#4 TO #10) -->
+      <div class="lb-rank-list" id="lb-rank-list">
+        <!-- Populated dynamically via JavaScript -->
+      </div>
+
+      <!-- RIGHT COLUMN: SIDE PANEL (USER POSITION + PIE CHART) -->
+      <div class="lb-side-panel">
+
+        <!-- USER POSITION CARD -->
+        <div class="lb-side-card">
+          <div class="lb-side-card__header">
+            <div class="lb-side-card__title">Your Standing</div>
+            <div class="lb-side-card__sub" id="pos-card-scope">Global Leaderboard Position</div>
+          </div>
+
+          <div class="lb-user-pos-box">
+            <div class="lb-user-pos-label" id="active-pos-label">Program Rank</div>
+            <div class="lb-user-pos-num" id="active-pos-num">#14</div>
+          </div>
+
+          <div class="lb-pos-list">
+            <div class="lb-pos-item" id="pos-item-program">
+              <span class="lb-pos-item__label">Program Completed</span>
+              <span class="lb-pos-item__val" id="val-program">#14</span>
+            </div>
+            <div class="lb-pos-item" id="pos-item-courses">
+              <span class="lb-pos-item__label">Courses Completed</span>
+              <span class="lb-pos-item__val" id="val-courses">#8</span>
+            </div>
+            <div class="lb-pos-item" id="pos-item-challenges">
+              <span class="lb-pos-item__label">Challenges Completed</span>
+              <span class="lb-pos-item__val" id="val-challenges">#12</span>
+            </div>
+            <div class="lb-pos-item" id="pos-item-languages">
+              <span class="lb-pos-item__label">Languages Mastered</span>
+              <span class="lb-pos-item__val" id="val-languages">#5</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROGRESS PIE CHART CARD -->
+        <div class="lb-side-card">
+          <div class="lb-side-card__header">
+            <div class="lb-side-card__title">Category Progress</div>
+            <div class="lb-side-card__sub">Completion breakdown across categories</div>
+          </div>
+
+          <!-- SVG DONUT / PIE CHART -->
+          <div class="lb-pie-wrap">
+            <svg width="160" height="160" viewBox="0 0 42 42">
+              <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#E2E8F0" stroke-width="5.5"></circle>
+              
+              <!-- Segment 1: Program (35%) -->
+              <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#1D72E8" stroke-width="5.5" stroke-dasharray="35 65" stroke-dashoffset="25" id="pie-seg-program"></circle>
+
+              <!-- Segment 2: Courses (25%) -->
+              <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#8B5CF6" stroke-width="5.5" stroke-dasharray="25 75" stroke-dashoffset="90" id="pie-seg-courses"></circle>
+
+              <!-- Segment 3: Challenges (25%) -->
+              <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#F59E0B" stroke-width="5.5" stroke-dasharray="25 75" stroke-dashoffset="65" id="pie-seg-challenges"></circle>
+
+              <!-- Segment 4: Languages (15%) -->
+              <circle cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#10B981" stroke-width="5.5" stroke-dasharray="15 85" stroke-dashoffset="40" id="pie-seg-languages"></circle>
+            </svg>
+            <div class="lb-pie-center-text">
+              <div class="lb-pie-center-num" id="pie-center-num">83%</div>
+              <div class="lb-pie-center-lbl">Overall</div>
+            </div>
+          </div>
+
+          <!-- PIE LEGEND -->
+          <div class="lb-pie-legend">
+            <div class="lb-legend-row">
+              <div class="lb-legend-left">
+                <span class="lb-legend-dot c1"></span>
+                <span>Program Completed</span>
+              </div>
+              <span class="lb-legend-val">35%</span>
+            </div>
+            <div class="lb-legend-row">
+              <div class="lb-legend-left">
+                <span class="lb-legend-dot c2"></span>
+                <span>Courses Completed</span>
+              </div>
+              <span class="lb-legend-val">25%</span>
+            </div>
+            <div class="lb-legend-row">
+              <div class="lb-legend-left">
+                <span class="lb-legend-dot c3"></span>
+                <span>Challenges Completed</span>
+              </div>
+              <span class="lb-legend-val">25%</span>
+            </div>
+            <div class="lb-legend-row">
+              <div class="lb-legend-left">
+                <span class="lb-legend-dot c4"></span>
+                <span>Languages Mastered</span>
+              </div>
+              <span class="lb-legend-val">15%</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script src="main.js"></script>
+<script>
+  // Leaderboard datasets for Global vs College
+  const GLOBAL_DATA = {
+    program: {
+      podium: [
+        { name: "Davis K", value: "48 Programs", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" },
+        { name: "Alexa M", value: "42 Programs", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80" },
+        { name: "Rahul S", value: "39 Programs", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" }
+      ],
+      rankings: [
+        { rank: "#4", name: "John Wick", metric: "35 Programs Completed", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#5", name: "Rahul Srivastava", metric: "32 Programs Completed", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#6", name: "Priya Verma", metric: "29 Programs Completed", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#7", name: "Dev Patel", metric: "27 Programs Completed", avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#8", name: "Meera Nair", metric: "24 Programs Completed", avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#9", name: "Kabir Sen", metric: "22 Programs Completed", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#10", name: "Zara Khan", metric: "20 Programs Completed", avatar: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=150&auto=format&fit=crop&q=80" }
+      ]
+    },
+    courses: {
+      podium: [
+        { name: "Meera Nair", value: "12 Courses", avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80" },
+        { name: "Kabir Sen", value: "10 Courses", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&auto=format&fit=crop&q=80" },
+        { name: "Alexa M", value: "9 Courses", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80" }
+      ],
+      rankings: [
+        { rank: "#4", name: "Davis K", metric: "8 Courses Completed", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#5", name: "Zara Khan", metric: "7 Courses Completed", avatar: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#6", name: "John Wick", metric: "6 Courses Completed", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#7", name: "Rahul S", metric: "6 Courses Completed", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#8", name: "Priya Verma", metric: "5 Courses Completed", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#9", name: "Dev Patel", metric: "4 Courses Completed", avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#10", name: "Rahul Srivastava", metric: "4 Courses Completed", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80" }
+      ]
+    },
+    challenges: {
+      podium: [
+        { name: "Rahul S", value: "112 Solved", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" },
+        { name: "Davis K", value: "98 Solved", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" },
+        { name: "Dev Patel", value: "85 Solved", avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80" }
+      ],
+      rankings: [
+        { rank: "#4", name: "Priya Verma", metric: "76 Challenges Solved", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#5", name: "Alexa M", metric: "71 Challenges Solved", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#6", name: "Kabir Sen", metric: "64 Challenges Solved", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#7", name: "Meera Nair", metric: "59 Challenges Solved", avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#8", name: "John Wick", metric: "52 Challenges Solved", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#9", name: "Zara Khan", metric: "48 Challenges Solved", avatar: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#10", name: "Rahul Srivastava", metric: "41 Challenges Solved", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80" }
+      ]
+    },
+    languages: {
+      podium: [
+        { name: "Zara Khan", value: "3 Mastered", avatar: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=150&auto=format&fit=crop&q=80" },
+        { name: "Davis K", value: "3 Mastered", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" },
+        { name: "Meera Nair", value: "2 Mastered", avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80" }
+      ],
+      rankings: [
+        { rank: "#4", name: "Alexa M", metric: "2 Languages Mastered (Java, Python)", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#5", name: "Rahul S", metric: "2 Languages Mastered (Java, C++)", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#6", name: "Dev Patel", metric: "2 Languages Mastered (C++, Python)", avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#7", name: "Kabir Sen", metric: "1 Language Mastered (Java Track)", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#8", name: "Priya Verma", metric: "1 Language Mastered (Python Track)", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#9", name: "John Wick", metric: "1 Language Mastered (C++ Track)", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80" },
+        { rank: "#10", name: "Rahul Srivastava", metric: "1 Language Mastered (Java Track)", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80" }
+      ]
+    }
+  };
+
+  // User position ranks per scope (Global vs College vs Batch)
+  const USER_RANKS = {
+    global: {
+      label: "Global Leaderboard Standing",
+      program: "#14",
+      courses: "#8",
+      challenges: "#12",
+      languages: "#5"
+    },
+    college: {
+      label: "My College Standing (IIT Bombay)",
+      program: "#3",
+      courses: "#2",
+      challenges: "#4",
+      languages: "#1"
+    },
+    batch: {
+      label: "My Batch Standing (CS 2026)",
+      program: "#2",
+      courses: "#1",
+      challenges: "#3",
+      languages: "#1"
+    }
+  };
+
+  function renderUI() {
+    const scope = document.getElementById('lb-scope-select').value;
+    const filterKey = document.getElementById('lb-main-filter').value;
+    const data = GLOBAL_DATA[filterKey] || GLOBAL_DATA.program;
+    const userRanks = USER_RANKS[scope] || USER_RANKS.global;
+
+    // 1. Update Podium Rank 1, 2, 3
+    document.getElementById('p1-name').textContent = data.podium[0].name;
+    document.getElementById('p1-badge').textContent = data.podium[0].value;
+    document.getElementById('p1-avatar').src = data.podium[0].avatar;
+
+    document.getElementById('p2-name').textContent = data.podium[1].name;
+    document.getElementById('p2-badge').textContent = data.podium[1].value;
+    document.getElementById('p2-avatar').src = data.podium[1].avatar;
+
+    document.getElementById('p3-name').textContent = data.podium[2].name;
+    document.getElementById('p3-badge').textContent = data.podium[2].value;
+    document.getElementById('p3-avatar').src = data.podium[2].avatar;
+
+    // 2. Render Left Column Rankings List (#4 to #10)
+    const listContainer = document.getElementById('lb-rank-list');
+    listContainer.innerHTML = '';
+
+    data.rankings.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'lb-list-item';
+      row.innerHTML = `
+        <div class="lb-item-user">
+          <img class="lb-item-avatar" src="${item.avatar}" alt="${item.name}" />
+          <div class="lb-item-info">
+            <span class="lb-item-name">${item.name}</span>
+            <span class="lb-item-metric">${item.metric}</span>
+          </div>
+        </div>
+        <div class="lb-item-rank">${item.rank}</div>
+      `;
+      listContainer.appendChild(row);
+    });
+
+    // 3. Update User Standing Side Card
+    document.getElementById('pos-card-scope').textContent = userRanks.label;
+    document.getElementById('val-program').textContent = userRanks.program;
+    document.getElementById('val-courses').textContent = userRanks.courses;
+    document.getElementById('val-challenges').textContent = userRanks.challenges;
+    document.getElementById('val-languages').textContent = userRanks.languages;
+
+    const filterNames = { program: "Program Rank", courses: "Courses Rank", challenges: "Challenges Rank", languages: "Languages Rank" };
+    document.getElementById('active-pos-label').textContent = filterNames[filterKey] || "Program Rank";
+    document.getElementById('active-pos-num').textContent = userRanks[filterKey] || "#14";
+
+    // Highlight active filter item in list
+    ['program', 'courses', 'challenges', 'languages'].forEach(k => {
+      const item = document.getElementById(`pos-item-${k}`);
+      if (item) {
+        if (k === filterKey) item.classList.add('active-filter');
+        else item.classList.remove('active-filter');
+      }
+    });
+  }
+
+  // Event Listeners
+  document.getElementById('lb-main-filter').addEventListener('change', renderUI);
+  document.getElementById('lb-scope-select').addEventListener('change', renderUI);
+
+  // Initial render
+  renderUI();
+</script>
+</body>
+</html>
