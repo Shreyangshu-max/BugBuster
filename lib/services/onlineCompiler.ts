@@ -90,7 +90,21 @@ export async function runStudentCode({ language, code, input = '' }: RunStudentC
   }
 
   const fetch = globalThis.fetch || require('node-fetch');
-  const apiKey = (process.env.ONLINECOMPILER_API_KEY || '').trim() || '7438f1983c9ca11780fdb921ceda9696';
+  const apiKey = (process.env.ONLINECOMPILER_API_KEY || '').trim();
+
+  if (!apiKey) {
+    return {
+      success: false,
+      status: 'error',
+      output: '',
+      error: 'EXECUTION_SERVICE_UNAVAILABLE: ONLINECOMPILER_API_KEY environment variable is not configured.',
+      exitCode: 1,
+      signal: null,
+      timedOut: false,
+      executionTime: 0,
+      memory: 0
+    };
+  }
 
   try {
     const response = await fetch('https://api.onlinecompiler.io/api/run-code-sync/', {
@@ -125,7 +139,7 @@ export async function runStudentCode({ language, code, input = '' }: RunStudentC
     const executionTime = data.execution_time || data.time || 0;
     const memory = data.memory || 0;
 
-    const isTimeout = data.timeout || data.status === 'timeout' || exitCode === 124 || error.toLowerCase().includes('timed out');
+    const isTimeout = data.timeout || data.status === 'timeout' || exitCode === 124 || exitCode === 137 || exitCode === 143 || data.signal === 'SIGKILL' || data.signal === 'SIGTERM' || error.toLowerCase().includes('time limit') || error.toLowerCase().includes('timed out') || error.toLowerCase().includes('killed') || (typeof executionTime === 'number' && executionTime >= 4.0);
     const isCompileError = !!data.compilation_error || (exitCode !== 0 && error.toLowerCase().includes('compilation'));
 
     let status: NormalizedExecutionResult['status'] = 'success';

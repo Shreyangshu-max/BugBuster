@@ -535,14 +535,15 @@ Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].</pre>
     const fullQuestionText = `${prob.title}\n\nProblem Statement:\n${prob.desc}\n\nExample Test Case:\nInput: ${prob.in}\nOutput: ${prob.out}`;
 
     const solveBtn = document.getElementById('cdpSolveBtn');
-    solveBtn.href = `/editor?lang=${currentLang}`;
+    const targetUrl = `/editor?lang=${currentLang}&question=${encodeURIComponent(fullQuestionText)}`;
+    solveBtn.href = targetUrl;
     solveBtn.onclick = (e) => {
       e.preventDefault();
       try {
         sessionStorage.setItem('bugbuster_selected_question', fullQuestionText);
         localStorage.setItem('bugbuster_selected_question', fullQuestionText);
       } catch (err) {}
-      window.location.href = `/editor?lang=${currentLang}`;
+      window.location.href = targetUrl;
     };
 
     detailOverlay.classList.add('open');
@@ -567,7 +568,7 @@ Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].</pre>
         sessionStorage.setItem('bugbuster_selected_question', fullText);
         localStorage.setItem('bugbuster_selected_question', fullText);
       } catch (err) {}
-      window.location.href = `/editor?lang=${currentLang}`;
+      window.location.href = `/editor?lang=${currentLang}&question=${encodeURIComponent(fullText)}`;
     });
   });
 

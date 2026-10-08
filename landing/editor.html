@@ -330,14 +330,20 @@
 
     // Auto-initialize workspace and Supabase coding_sessions table row if opened from Challenges
     if (hasPrefilledQuestion) {
-      window.addEventListener('DOMContentLoaded', () => {
+      const startAutoWorkspace = () => {
         setTimeout(() => {
           if (typeof generateWorkspace === 'function') {
             console.log('[Editor] Auto-generating workspace and Supabase session for challenge question...');
             generateWorkspace();
           }
         }, 150);
-      });
+      };
+
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        startAutoWorkspace();
+      } else {
+        window.addEventListener('DOMContentLoaded', startAutoWorkspace);
+      }
     }
   } catch (err) {
     console.warn('[Editor] Error loading prefilled challenge question:', err);
@@ -400,10 +406,10 @@ if (ubClear) {
 }
 
 /* ─────────────────────────────────────────────
-   SUPABASE INTEGRATION (coding_sessions)
+   SUPABASE INTEGRATION (questions & coding_sessions)
 ───────────────────────────────────────────── */
-const SUPABASE_URL = (window.ENV && window.ENV.NEXT_PUBLIC_SUPABASE_URL) || '';
-const SUPABASE_KEY = (window.ENV && window.ENV.NEXT_PUBLIC_SUPABASE_ANON_KEY) || '';
+const SUPABASE_URL = (window.ENV && window.ENV.NEXT_PUBLIC_SUPABASE_URL) || 'https://mbtkgbpitecbpbziwagi.supabase.co';
+const SUPABASE_KEY = (window.ENV && window.ENV.NEXT_PUBLIC_SUPABASE_ANON_KEY) || 'sb_publishable_5QA_0gOfFh6pjwfQPQA5HA_l_wBx58C';
 let supabaseClient = null;
 let currentSessionId = null;
 let codeDebounceTimer = null;
@@ -417,11 +423,13 @@ try {
   console.warn('[Supabase] Client initialization failed silently:', e);
 }
 
-async function createDBSession(questionText, starterCode) {
-  if (!supabaseClient) return;
+async function saveQuestionToSupabase(questionText, starterCode, lang) {
+  if (!supabaseClient || !questionText) return;
+  const now = new Date().toISOString();
+
+  // 1. Primary: Save session to 'coding_sessions' table in Supabase
   try {
-    const now = new Date().toISOString();
-    const payload = {
+    const sessionPayload = {
       question_entered: questionText || '',
       code_entered: starterCode || '',
       error_count: 0,
@@ -435,19 +443,44 @@ async function createDBSession(questionText, starterCode) {
     };
     const { data, error } = await supabaseClient
       .from('coding_sessions')
-      .insert([payload])
+      .insert([sessionPayload])
       .select('id')
       .single();
 
     if (error) {
-      console.warn('[Supabase] createDBSession error:', error.message || error);
+      console.warn('[Supabase] coding_sessions insert note:', error.message);
     } else if (data && data.id) {
       currentSessionId = data.id;
       console.log('[Supabase] Active session ID:', currentSessionId);
     }
   } catch (err) {
-    console.warn('[Supabase] createDBSession exception:', err);
+    console.warn('[Supabase] saveQuestionToSupabase (coding_sessions) exception:', err);
   }
+
+  // 2. Secondary: If user created a 'questions' table, insert question row as well
+  try {
+    const questionPayload = {
+      question: questionText,
+      question_text: questionText,
+      title: questionText.split('\n')[0].replace(/^#\d+\s*/, '').substring(0, 100) || 'Coding Question',
+      code: starterCode || '',
+      starter_code: starterCode || '',
+      language: lang || 'python',
+      created_at: now
+    };
+    supabaseClient.from('questions').insert([questionPayload]).then(({ error }) => {
+      if (error && error.code !== 'PGRST205') {
+        supabaseClient.from('questions').insert([{ question: questionText, created_at: now }]).catch(() => {});
+      }
+    }).catch(() => {});
+  } catch (err) {
+    // Ignore if questions table is not configured in user's Supabase schema
+  }
+}
+
+async function createDBSession(questionText, starterCode) {
+  const lang = qLang ? qLang.value : 'python';
+  await saveQuestionToSupabase(questionText, starterCode, lang);
 }
 
 async function updateDBSession(fields = {}) {
@@ -508,6 +541,10 @@ let editorReady = false;
 
 function initAce(lang) {
   const cfg = LANG_CONFIG[lang] || LANG_CONFIG.python;
+  if (typeof ace === 'undefined') {
+    console.warn('[Ace Editor] ace is not loaded yet.');
+    return;
+  }
   if (!aceEditor) {
     aceEditor = ace.edit('ace-editor');
     aceEditor.setTheme('ace/theme/one_dark');
@@ -552,56 +589,78 @@ const qLang = document.getElementById('q-lang');
 if (generateBtn) generateBtn.addEventListener('click', generateWorkspace);
 
 async function generateWorkspace() {
-  const question = document.getElementById('q-textarea').value.trim();
+  const qTextarea = document.getElementById('q-textarea');
+  const question = qTextarea ? qTextarea.value.trim() : '';
   if (!question && !uploadedFile) {
-    const ta = document.getElementById('q-textarea');
-    ta.style.borderColor = '#EF4444';
-    setTimeout(() => ta.style.borderColor = '', 1000);
+    if (qTextarea) {
+      qTextarea.style.borderColor = '#EF4444';
+      setTimeout(() => qTextarea.style.borderColor = '', 1000);
+    }
     return;
   }
 
-  const lang = qLang.value;
+  const lang = qLang ? qLang.value : 'python';
   const cfg = LANG_CONFIG[lang] || LANG_CONFIG.python;
-  fileTabName.textContent = cfg.ext;
+  if (fileTabName) fileTabName.textContent = cfg.ext;
 
-  generateBtn.disabled = true;
-  generateBtn.innerHTML = '<span>Generating...</span>';
-
-  emptyView.classList.add('hidden');
-  loadingView.classList.add('active');
-
-  const steps = ['ls-1', 'ls-2', 'ls-3', 'ls-4'];
-  for (let i = 0; i < steps.length; i++) {
-    await sleep(350);
-    if (i > 0) document.getElementById(steps[i-1]).classList.add('done');
-    document.getElementById(steps[i]).classList.add('active');
+  if (generateBtn) {
+    generateBtn.disabled = true;
+    generateBtn.innerHTML = '<span>Generating...</span>';
   }
 
-  await sleep(250);
-  loadingView.classList.remove('active');
-  steps.forEach(s => document.getElementById(s).classList.remove('active', 'done'));
+  if (emptyView) emptyView.classList.add('hidden');
+  if (loadingView) loadingView.classList.add('active');
 
-  initAce(lang);
-  aceEditorEl.classList.add('visible');
+  try {
+    const steps = ['ls-1', 'ls-2', 'ls-3', 'ls-4'];
+    for (let i = 0; i < steps.length; i++) {
+      await sleep(350);
+      const prev = document.getElementById(steps[i-1]);
+      if (prev) prev.classList.add('done');
+      const cur = document.getElementById(steps[i]);
+      if (cur) cur.classList.add('active');
+    }
 
-  const initialCode = aceEditor ? aceEditor.getValue() : cfg.starter;
-  // Create single Supabase session for this workspace (non-blocking)
-  createDBSession(question, initialCode).catch(err => console.warn('[Supabase] Session create background catch:', err));
+    await sleep(250);
 
-  ['run-btn', 'eval-btn', 'publish-btn', 'post-btn'].forEach(id => {
-    document.getElementById(id).disabled = false;
-  });
+    initAce(lang);
+    if (aceEditorEl) aceEditorEl.classList.add('visible');
 
-  document.getElementById('ai-input').disabled = false;
-  document.getElementById('ai-send').disabled = false;
+    const initialCode = aceEditor ? aceEditor.getValue() : cfg.starter;
+    
+    // Create Supabase session & save question to questions table (non-blocking)
+    createDBSession(question, initialCode).catch(err => console.warn('[Supabase] Session create catch:', err));
 
-  generateBtn.disabled = false;
-  generateBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg><span>Generate Workspace →</span>';
+    ['run-btn', 'eval-btn', 'publish-btn', 'post-btn'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.disabled = false;
+    });
 
-  // Start workspace timer
-  startWorkspaceTimer();
+    const aiInput = document.getElementById('ai-input');
+    const aiSend = document.getElementById('ai-send');
+    if (aiInput) aiInput.disabled = false;
+    if (aiSend) aiSend.disabled = false;
 
-  resetHints();
+    // Start workspace timer
+    startWorkspaceTimer();
+
+    resetHints();
+
+  } catch (err) {
+    console.error('[Editor] generateWorkspace error:', err);
+    showToast('⚠️ Workspace error: ' + err.message);
+  } finally {
+    if (loadingView) loadingView.classList.remove('active');
+    ['ls-1', 'ls-2', 'ls-3', 'ls-4'].forEach(s => {
+      const el = document.getElementById(s);
+      if (el) el.classList.remove('active', 'done');
+    });
+
+    if (generateBtn) {
+      generateBtn.disabled = false;
+      generateBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg><span>Generate Workspace →</span>';
+    }
+  }
 }
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }

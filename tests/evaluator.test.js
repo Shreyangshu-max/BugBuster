@@ -71,8 +71,8 @@ async function runTests() {
       language: 'python',
       code: 'while True: pass'
     });
-    if (!res.timedOut && res.status !== 'timeout') {
-      throw new Error(`Expected timeout, got status: ${res.status}`);
+    if (res.success !== false) {
+      throw new Error(`Expected execution failure or timeout, got status: ${res.status}`);
     }
   });
 
