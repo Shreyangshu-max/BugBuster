@@ -89,7 +89,8 @@ export async function runStudentCode({ language, code, input = '' }: RunStudentC
     };
   }
 
-  const apiKey = process.env.ONLINECOMPILER_API_KEY;
+  const fetch = globalThis.fetch || require('node-fetch');
+  const apiKey = (process.env.ONLINECOMPILER_API_KEY || '').trim() || '7438f1983c9ca11780fdb921ceda9696';
 
   try {
     const response = await fetch('https://api.onlinecompiler.io/api/run-code-sync/', {
