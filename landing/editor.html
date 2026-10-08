@@ -831,6 +831,12 @@ function handleGeminiAnalysis(analysis) {
   const surrenderBtn = document.getElementById('surrender-btn');
   if (surrenderBtn) surrenderBtn.disabled = false;
 
+  // Auto-reveal Hint 1 upon evaluation if hints are available
+  if (currentHints.length > 0 && revealedHintIndex === 0) {
+    revealedHintIndex = 1;
+    if (currentHints[0]) updateDBSession({ hint1: currentHints[0].hint });
+  }
+
   renderHintsUI();
 }
 
@@ -875,14 +881,29 @@ function renderHintsUI() {
       const isUnlocked = idx < revealedHintIndex;
       const card = document.createElement('div');
       card.className = `hint-card ${isUnlocked ? 'unlocked' : 'locked'}`;
+      card.style.cursor = isUnlocked ? 'default' : 'pointer';
       const levelCls = ['l1', 'l2', 'l3'][idx] || 'l3';
       card.innerHTML = `
         <div class="hint-card-head">
           <span class="hc-badge ${levelCls}">Hint ${idx + 1}</span>
-          ${isUnlocked ? '' : '<span style="font-size:11.5px;color:rgba(255,255,255,0.7);font-weight:600;">🔒 Locked</span>'}
+          ${isUnlocked ? '' : '<span style="font-size:11.5px;color:rgba(255,255,255,0.7);font-weight:600;">🔒 Click to unlock</span>'}
         </div>
-        <div class="hc-body">${isUnlocked ? escapeHtml(h.hint) : 'Locked — Ask for hint or make errors to unlock...'}</div>
+        <div class="hc-body">${isUnlocked ? escapeHtml(h.hint) : 'Locked — Click card or button to unlock...'}</div>
       `;
+
+      if (!isUnlocked) {
+        card.addEventListener('click', () => {
+          revealedHintIndex = idx + 1;
+          renderHintsUI();
+          showToast(`💡 Hint ${revealedHintIndex} Unlocked!`);
+          const payload = {};
+          if (revealedHintIndex === 1 && currentHints[0]) payload.hint1 = currentHints[0].hint;
+          if (revealedHintIndex === 2 && currentHints[1]) payload.hint2 = currentHints[1].hint;
+          if (revealedHintIndex === 3 && currentHints[2]) payload.hint3 = currentHints[2].hint;
+          updateDBSession(payload);
+        });
+      }
+
       scroll.appendChild(card);
     });
   }
@@ -932,36 +953,9 @@ function updateUnlockButtonState() {
     return;
   }
 
-  // Hint 1: Unlocks on first ask
-  if (revealedHintIndex === 0) {
-    unlockText.textContent = 'Get Hint 1';
-    unlockBtn.disabled = false;
-    return;
-  }
-
-  // Hint 2: Requires 5 errors total
-  if (revealedHintIndex === 1) {
-    if (errorCount >= 5) {
-      unlockText.textContent = 'Get Hint 2';
-      unlockBtn.disabled = false;
-    } else {
-      unlockText.textContent = `Locked (${errorCount}/5 errors for Hint 2)`;
-      unlockBtn.disabled = true;
-    }
-    return;
-  }
-
-  // Hint 3: Requires 10 errors total
-  if (revealedHintIndex === 2) {
-    if (errorCount >= 10) {
-      unlockText.textContent = 'Get Hint 3';
-      unlockBtn.disabled = false;
-    } else {
-      unlockText.textContent = `Locked (${errorCount}/10 errors for Hint 3)`;
-      unlockBtn.disabled = true;
-    }
-    return;
-  }
+  const nextHintNum = revealedHintIndex + 1;
+  unlockText.textContent = `Get Hint ${nextHintNum}`;
+  unlockBtn.disabled = false;
 }
 
 // Unlock hint button event listener
@@ -970,21 +964,16 @@ if (unlockBtn) {
   unlockBtn.addEventListener('click', () => {
     if (currentHints.length === 0) return;
 
-    if (revealedHintIndex === 0) {
-      revealedHintIndex = 1;
+    if (revealedHintIndex < currentHints.length) {
+      revealedHintIndex++;
       renderHintsUI();
-      showToast('💡 Hint 1 Unlocked!');
-      if (currentHints[0]) updateDBSession({ hint1: currentHints[0].hint });
-    } else if (revealedHintIndex === 1 && errorCount >= 5) {
-      revealedHintIndex = 2;
-      renderHintsUI();
-      showToast('💡 Hint 2 Unlocked!');
-      if (currentHints[1]) updateDBSession({ hint2: currentHints[1].hint });
-    } else if (revealedHintIndex === 2 && errorCount >= 10) {
-      revealedHintIndex = 3;
-      renderHintsUI();
-      showToast('💡 Hint 3 Unlocked!');
-      if (currentHints[2]) updateDBSession({ hint3: currentHints[2].hint });
+      showToast(`💡 Hint ${revealedHintIndex} Unlocked!`);
+
+      const payload = {};
+      if (revealedHintIndex === 1 && currentHints[0]) payload.hint1 = currentHints[0].hint;
+      if (revealedHintIndex === 2 && currentHints[1]) payload.hint2 = currentHints[1].hint;
+      if (revealedHintIndex === 3 && currentHints[2]) payload.hint3 = currentHints[2].hint;
+      updateDBSession(payload);
     }
   });
 }
