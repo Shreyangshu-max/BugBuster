@@ -1,14 +1,41 @@
 {
   "version": 2,
   "rewrites": [
-    { "source": "/api/code/run", "destination": "/api/code/run" },
-    { "source": "/api/code/analyze", "destination": "/api/code/analyze" },
-    { "source": "/api/code/evaluate", "destination": "/api/code/evaluate" },
-    { "source": "/editor", "destination": "/landing/editor.html" },
-    { "source": "/community", "destination": "/landing/community.html" },
-    { "source": "/challenges", "destination": "/landing/challenges.html" },
-    { "source": "/leaderboard", "destination": "/landing/leaderboard.html" },
-    { "source": "/dashboard", "destination": "/landing/dashboard.html" },
-    { "source": "/recall", "destination": "/landing/recall.html" }
+    {
+      "source": "/api/code/run",
+      "destination": "/api/code/run"
+    },
+    {
+      "source": "/api/code/analyze",
+      "destination": "/api/code/analyze"
+    },
+    {
+      "source": "/api/code/evaluate",
+      "destination": "/api/code/evaluate"
+    },
+    {
+      "source": "/editor",
+      "destination": "/landing/editor.html"
+    },
+    {
+      "source": "/community",
+      "destination": "/landing/community.html"
+    },
+    {
+      "source": "/challenges",
+      "destination": "/landing/challenges.html"
+    },
+    {
+      "source": "/leaderboard",
+      "destination": "/landing/leaderboard.html"
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/landing/dashboard.html"
+    },
+    {
+      "source": "/recall",
+      "destination": "/landing/recall.html"
+    }
   ]
 }
